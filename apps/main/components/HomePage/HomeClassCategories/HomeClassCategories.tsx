@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function ClassCategories() {
-  return (
+export default function HomeClassCategories() {
+	return (
 		<section className="layout-pt-lg layout-pb-lg">
 			<div className="container">
 				<div className="row justify-center text-center">
