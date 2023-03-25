@@ -1,4 +1,3 @@
-import { Button } from "ui";
 import MainLayout from "../components/Layout/MainLayout";
 import HomeHero from "../components/HomePage/HomeHero";
 import WhyUs from "../components/HomePage/WhyUs";

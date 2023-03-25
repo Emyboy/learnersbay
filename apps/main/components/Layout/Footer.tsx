@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Footer() {
 	return (
-		<footer className="footer -type-5 pt-60">
+		<footer className="footer -type-5 pt-60-">
 			<div className="container">
 				{/* <div className="row y-gap-30 pb-60">
 					<div className="col-xl-3 col-lg-5 col-md-6">
