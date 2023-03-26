@@ -1,59 +1,151 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Button } from '@chakra-ui/react'
+import Link from 'next/link'
+import { API } from '../../utils/API.utils'
+import Cookies from 'js-cookie'
+import { setAuthState } from '../../redux/actions/auth.actions'
+import { withChakra, withChakraProps } from '../HOCs/withChakra'
 
-type Props = {}
+type Props = {} & withChakraProps
 
-export default function SignupForm({}: Props) {
-  return (
-		<div className="px-50 py-50 md:px-25 md:py-25 bg-white shadow-1 rounded-16">
+export default withChakra(function SignupForm({ toast }: Props) {
+	const [first_name, setFirstName] = useState('')
+	const [last_name, setLastName] = useState('')
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+	const [password_confirmation, setPasswordConfirmation] = useState('')
+	const [loading, setLoading] = useState(false)
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		try {
+			if (password !== password_confirmation) {
+				return toast({
+					title: 'Password mismatch',
+					description: "Please check your password and try again",
+					status: 'error',
+					isClosable: true,
+				})
+			}
+			setLoading(true)
+			const data = {
+				email: email.trim().replace(/ /g, '').toLowerCase(),
+				password,
+				first_name: first_name
+					.trim()
+					.split(' ')[0]
+					.toLowerCase()
+					.replace(/[^a-zA-Z ]/g, ''),
+				last_name: last_name
+					.trim()
+					.split(' ')[0]
+					.toLowerCase()
+					.replace(/[^a-zA-Z ]/g, ''),
+			}
+
+			const res = await API(`/auth/local/register`, false, {
+				data,
+				method: 'POST',
+			})
+			setLoading(false)
+
+			Cookies.set('auth_token', res.data.jwt)
+			setAuthState({ user: res.data.user })
+		} catch (error) {
+			setLoading(false)
+			return Promise.reject(error)
+		}
+	}
+
+	return (
+		<>
 			<h3 className="text-30 lh-13">Sign Up</h3>
 			<p className="mt-10">
 				Already have an account?{' '}
-				<a href="login.html" className="text-purple-1">
+				<Link href="/login" className="text-purple-1">
 					Log in
-				</a>
+				</Link>
 			</p>
 
 			<form
 				className="contact-form respondForm__form row y-gap-20 pt-30"
-				action="#"
+				onSubmit={handleSubmit}
 			>
 				<div className="col-lg-6">
 					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
-						Email address *
+						First Name
 					</label>
-					<input type="text" name="title" placeholder="Name" />
+					<input
+						required
+						type="text"
+						name="first_name"
+						placeholder="Ex John"
+						onChange={(e) => setFirstName(e.target.value)}
+					/>
 				</div>
 				<div className="col-lg-6">
 					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
-						Username *
+						Last Name
 					</label>
-					<input type="text" name="title" placeholder="Name" />
+					<input
+						required
+						type="text"
+						name="last_name"
+						placeholder="Ex. Doe"
+						onChange={(e) => setLastName(e.target.value)}
+					/>
+				</div>
+				<div className="col-lg-12">
+					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
+						Email address
+					</label>
+					<input
+						required
+						type="email"
+						name="title"
+						placeholder="johnDoe@mail.com"
+						onChange={(e) => setEmail(e.target.value)}
+					/>
+				</div>
+
+				<div className="col-lg-6">
+					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
+						Password
+					</label>
+					<input
+						required
+						type="password"
+						name="title"
+						placeholder="* * * * * *"
+						onChange={(e) => setPassword(e.target.value)}
+					/>
 				</div>
 				<div className="col-lg-6">
 					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
-						Password *
+						Confirm Password
 					</label>
-					<input type="text" name="title" placeholder="Name" />
-				</div>
-				<div className="col-lg-6">
-					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
-						Confirm Password *
-					</label>
-					<input type="text" name="title" placeholder="Name" />
+					<input
+						required
+						type="password"
+						name="title"
+						placeholder="* * * * * *"
+						onChange={(e) => setPasswordConfirmation(e.target.value)}
+					/>
 				</div>
 				<div className="col-12">
-					<button
+					<Button
+						className="button -md -purple-1 text-white fw-500 w-1/1"
 						type="submit"
 						name="submit"
 						id="submit"
-						className="button -md -purple-1 text-white fw-500 w-1/1"
+						isLoading={loading}
 					>
 						Register
-					</button>
+					</Button>
 				</div>
 			</form>
 
-			<div className="lh-12 text-dark-1 fw-500 text-center mt-20">
+			{/* <div className="lh-12 text-dark-1 fw-500 text-center mt-20">
 				Or sign in using
 			</div>
 
@@ -68,7 +160,7 @@ export default function SignupForm({}: Props) {
 						Log In via Google+
 					</button>
 				</div>
-			</div>
-		</div>
+			</div> */}
+		</>
 	)
-}
+})

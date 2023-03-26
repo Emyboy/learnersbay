@@ -33,8 +33,8 @@ export default function NavBar() {
 							<div className="header__logo ">
 								<Link data-barba="" href="/" className='d-flex align-items-center'>
 									<Image
-										width={40}
-										height={40}
+										width={60}
+										height={60}
 										src="/assets/logos/logo_purple.png"
 										alt="logo"
 									/>

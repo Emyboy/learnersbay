@@ -4,7 +4,7 @@ type Props = {}
 
 export default function LoginForm({}: Props) {
   return (
-		<div className="px-50 py-50 md:px-25 md:py-25 bg-white shadow-1 rounded-16">
+		<>
 			<h3 className="text-30 lh-13">Login</h3>
 			<p className="mt-10">
 				Already have an account?{' '}
@@ -69,6 +69,6 @@ export default function LoginForm({}: Props) {
 					</button>
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }
