@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -8,8 +9,8 @@ export default function NavBar() {
 			link: '/',
 		},
 		{
-			name: 'Categories',
-			link: '/categories',
+			name: 'Classes',
+			link: '/classes',
 		},
 		{
 			name: 'For Tutors',
@@ -30,9 +31,14 @@ export default function NavBar() {
 					<div className="col-auto">
 						<div className="header-left d-flex items-center">
 							<div className="header__logo ">
-								<a data-barba="" href="index.html">
-									<img src="/assets/img/general/logo-dark.svg" alt="logo" />
-								</a>
+								<Link data-barba="" href="/" className='d-flex align-items-center'>
+									<Image
+										width={40}
+										height={40}
+										src="/assets/logos/logo_purple.png"
+										alt="logo"
+									/>
+								</Link>
 							</div>
 
 							<div
