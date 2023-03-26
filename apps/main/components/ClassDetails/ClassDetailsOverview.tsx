@@ -10,25 +10,25 @@ export default function ClassDetailsOverview({}: Props) {
 			<div className="show-more mt-30 js-show-more">
 				<div className="show-more__content" style={{ maxHeight: `260px` }}>
 					<p className="">
-						Phasellus enim magna, varius et commodo ut, ultricies vitae velit.
+						{`Phasellus enim magna, varius et commodo ut, ultricies vitae velit.
 						Ut nulla tellus, eleifend euismod pellentesque vel, sagittis vel
 						justo. In libero urna, venenatis sit amet ornare non, suscipit nec
 						risus. Sed consequat justo non mauris pretium at tempor justo
 						sodales. Quisque tincidunt laoreet malesuada. Cum sociis natoque
-						penatibus et magnis dis parturient montes, nascetur.
+						penatibus et magnis dis parturient montes, nascetur.`}
 						<br />
 						<br />
-						This course is aimed at people interested in UI/UX Design. We’ll
+						{`This course is aimed at people interested in UI/UX Design. We’ll
 						start from the very beginning and work all the way through, step by
 						step. If you already have some UI/UX Design experience but want to
 						get up to speed using Adobe XD then this course is perfect for you
-						too!
+						too!`}
 						<br />
 						<br />
-						First, we will go over the differences between UX and UI Design. We
+						{`First, we will go over the differences between UX and UI Design. We
 						will look at what our brief for this real-world project is, then we
 						will learn about low-fidelity wireframes and how to make use of
-						existing UI design kits.
+						existing UI design kits.`}
 					</p>
 				</div>
 
@@ -38,7 +38,7 @@ export default function ClassDetailsOverview({}: Props) {
 			</div>
 
 			<div className="mt-60">
-				<h4 className="text-20 fw-500 mb-30">What you'll learn</h4>
+				<h4 className="text-20 fw-500 mb-30">{`What you'll learn`}</h4>
 				<div className="row x-gap-100 justfiy-between">
 					<div className="col-md-6">
 						<div className="y-gap-20">
