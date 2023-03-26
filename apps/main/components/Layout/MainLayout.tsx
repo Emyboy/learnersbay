@@ -6,7 +6,7 @@ export default function MainLayout(props: any) {
 	return (
 		<main className="main-content  ">
 			<NavBar />
-			<div className="content-wrapper  js-content-wrapper">
+			<div className="content-wrapper pt-60  js-content-wrapper">
 				{props.children}
 			</div>
 			<Footer />

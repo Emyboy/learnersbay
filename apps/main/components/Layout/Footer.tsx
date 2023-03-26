@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Footer() {
 	return (
-		<footer className="footer -type-5 pt-60">
+		<footer className="footer -type-5 pt-60-">
 			<div className="container">
 				{/* <div className="row y-gap-30 pb-60">
 					<div className="col-xl-3 col-lg-5 col-md-6">
@@ -115,7 +115,7 @@ export default function Footer() {
 					<div className="row justify-between items-center y-gap-20">
 						<div className="col-auto">
 							<div className="footer-footer__copyright d-flex items-center h-100">
-								© 2022 Educrat. All Right Reserved.
+								© {new Date().getFullYear()} LearnersBay. All Right Reserved.
 							</div>
 						</div>
 

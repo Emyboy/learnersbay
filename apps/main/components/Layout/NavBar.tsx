@@ -1,6 +1,25 @@
+import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 export default function NavBar() {
+	const navLinks = [
+		{
+			name: 'Home',
+			link: '/',
+		},
+		{
+			name: 'Classes',
+			link: '/classes',
+		},
+		{
+			name: 'For Tutors',
+			link: '/for-tutors',
+		},
+	]
+
+	const [showNav, setShowNav] = React.useState(false)
+
 	return (
 		<header
 			data-anim="fade"
@@ -12,12 +31,21 @@ export default function NavBar() {
 					<div className="col-auto">
 						<div className="header-left d-flex items-center">
 							<div className="header__logo ">
-								<a data-barba="" href="index.html">
-									<img src="/assets/img/general/logo-dark.svg" alt="logo" />
-								</a>
+								<Link data-barba="" href="/" className='d-flex align-items-center'>
+									<Image
+										width={40}
+										height={40}
+										src="/assets/logos/logo_purple.png"
+										alt="logo"
+									/>
+								</Link>
 							</div>
 
-							<div className="header-menu js-mobile-menu-toggle ">
+							<div
+								className={`header-menu js-mobile-menu-toggle 	${
+									showNav && '-is-el-visible'
+								}`}
+							>
 								<div className="header-menu__content">
 									<div className="mobile-bg js-mobile-bg"></div>
 
@@ -32,37 +60,16 @@ export default function NavBar() {
 
 									<div className="menu js-navList">
 										<ul className="menu__nav text-dark-1 ml-50 xl:ml-30 -is-active mb-0">
-											<li className="menu-item-has-children">
-												<a data-barba="">Home </a>
-											</li>
-
-											<li className="menu-item-has-children -has-mega-menu">
-												<a data-barba="">Courses </a>
-
-												<ul className="subnav d-none xl:d-block">
-													<li className="menu__backButton js-nav-list-back">
-														<a href="#">Courses</a>
+											{navLinks.map((link) => {
+												return (
+													<li
+														className="menu-item-has-children"
+														key={link.link}
+													>
+														<Link href={link.link}>{link.name} </Link>
 													</li>
-												</ul>
-											</li>
-
-											<li className="menu-item-has-children">
-												<a data-barba="">Events </a>
-											</li>
-
-											<li className="menu-item-has-children">
-												<a data-barba="">Blog </a>
-											</li>
-
-											<li className="menu-item-has-children">
-												<a data-barba="">Pages </a>
-											</li>
-
-											<li>
-												<a data-barba="" href="contact-1.html">
-													Contact
-												</a>
-											</li>
+												)
+											})}
 										</ul>
 									</div>
 
@@ -115,6 +122,7 @@ export default function NavBar() {
 								</div>
 
 								<div
+									onClick={() => setShowNav(false)}
 									className="header-menu-close"
 									data-el-toggle=".js-mobile-menu-toggle"
 								>
@@ -220,123 +228,11 @@ export default function NavBar() {
 									</div>
 								</div>
 
-								<div className="relative ml-30 xl:ml-20">
-									<button
-										className="d-flex items-center text-dark-1"
-										data-el-toggle=".js-cart-toggle"
-									>
-										<i className="text-20 icon icon-basket"></i>
-									</button>
-
-									<div className="toggle-element js-cart-toggle">
-										<div className="header-cart bg-white -dark-bg-dark-1 rounded-8">
-											<div className="px-30 pt-30 pb-10">
-												<div className="row justify-between x-gap-40 pb-20">
-													<div className="col">
-														<div className="row x-gap-10 y-gap-10">
-															<div className="col-auto">
-																<img
-																	src="/assets/img/menus/cart/1.png"
-																	alt="image"
-																/>
-															</div>
-
-															<div className="col">
-																<div className="text-dark-1 lh-15">
-																	The Ultimate Drawing Course Beginner to
-																	Advanced...
-																</div>
-
-																<div className="d-flex items-center mt-10">
-																	<div className="lh-12 fw-500 line-through text-light-1 mr-10">
-																		$179
-																	</div>
-																	<div className="text-18 lh-12 fw-500 text-dark-1">
-																		$79
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-
-													<div className="col-auto">
-														<button>
-															<img
-																src="/assets/img/menus/close.svg"
-																alt="icon"
-															/>
-														</button>
-													</div>
-												</div>
-
-												<div className="row justify-between x-gap-40 pb-20">
-													<div className="col">
-														<div className="row x-gap-10 y-gap-10">
-															<div className="col-auto">
-																<img
-																	src="/assets/img/menus/cart/2.png"
-																	alt="image"
-																/>
-															</div>
-
-															<div className="col">
-																<div className="text-dark-1 lh-15">
-																	User Experience Design Essentials - Adobe XD
-																	UI UX...
-																</div>
-
-																<div className="d-flex items-center mt-10">
-																	<div className="lh-12 fw-500 line-through text-light-1 mr-10">
-																		$179
-																	</div>
-																	<div className="text-18 lh-12 fw-500 text-dark-1">
-																		$79
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-
-													<div className="col-auto">
-														<button>
-															<img
-																src="/assets/img/menus/close.svg"
-																alt="icon"
-															/>
-														</button>
-													</div>
-												</div>
-											</div>
-
-											<div className="px-30 pt-20 pb-30 border-top-light">
-												<div className="d-flex justify-between">
-													<div className="text-18 lh-12 text-dark-1 fw-500">
-														Total:
-													</div>
-													<div className="text-18 lh-12 text-dark-1 fw-500">
-														$659
-													</div>
-												</div>
-
-												<div className="row x-gap-20 y-gap-10 pt-30">
-													<div className="col-sm-6">
-														<button className="button py-20 -dark-1 text-white -dark-button-white col-12">
-															View Cart
-														</button>
-													</div>
-													<div className="col-sm-6">
-														<button className="button py-20 -purple-1 text-white col-12">
-															Checkout
-														</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+								{/* HERE */}
 
 								<div className="d-none xl:d-block ml-20">
 									<button
+										onClick={() => setShowNav(!showNav)}
 										className="text-dark-1 items-center"
 										data-el-toggle=".js-mobile-menu-toggle"
 									>
@@ -346,15 +242,15 @@ export default function NavBar() {
 							</div>
 
 							<div className="header-right__buttons d-flex items-center ml-30 xl:ml-20 lg:d-none">
-								<a href="login.html" className="button -underline text-dark-1">
+								<Link href={`/login`} className="button -underline text-dark-1">
 									Log in
-								</a>
-								<a
-									href="signup.html"
-									className="button px-25 h-50 -dark-1 text-white ml-20"
+								</Link>
+								<Link
+									href="/register"
+									className="button px-25 h-50 -purple-1 text-white ml-20"
 								>
-									Sign up
-								</a>
+									Join Us
+								</Link>
 							</div>
 						</div>
 					</div>
