@@ -4,7 +4,7 @@ export default function HomeHero() {
 	return (
 		<section
 			data-anim-wrap=""
-			className="mt-60 mainSlider -type-1 js-mainSlider swiper-initialized swiper-horizontal swiper-pointer-events swiper-watch-progress swiper-backface-hidden animated"
+			className="mainSlider -type-1 js-mainSlider swiper-initialized swiper-horizontal swiper-pointer-events swiper-watch-progress swiper-backface-hidden animated"
 		>
 			<div
 				className="swiper-wrapper"

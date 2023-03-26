@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 type Props = {}
@@ -5,8 +6,8 @@ type Props = {}
 export default function EachClassXl({}: Props) {
 	return (
 		<div className="col-12 border-bottom-light">
-			<a
-				href="#"
+			<Link
+				href={`/class/tech/how-to-make-bread/1223`}
 				className="coursesCard -type-1 row y-gap-20 flex-row items-center"
 			>
 				<div className="col-xl-3 col-lg-4">
@@ -33,7 +34,7 @@ export default function EachClassXl({}: Props) {
 						<div className="text-13 lh-1 ml-10">(1991)</div>
 					</div>
 
-					<div className="col-xl-7 text-17 lh-15 fw-500 text-dark-1 mt-10">
+					<div className="col-xl-9 text-20 lh-15 fw-600 text-dark-1 mt-10">
 						Learn Figma - UI/UX Design Essential Training
 					</div>
 					<div className="mt-8">
@@ -90,8 +91,8 @@ export default function EachClassXl({}: Props) {
 
 				<div className="col-md-auto">
 					<div className="text-right md:text-left">
-						<div className="text-15 lh-1 fw-500 line-through">$179</div>
-						<div className="text-24 lh-1 fw-500 text-dark-1 mt-10">$279</div>
+						{/* <div className="text-15 lh-1 fw-500 line-through">$179</div> */}
+						<div className="text-24 lh-1 fw-600 text-dark-1 mt-10">₦54,279.00</div>
 					</div>
 					<div className="row x-gap-20 y-gap-20 items-center pt-25">
 						<div className="col-auto">
@@ -119,7 +120,7 @@ export default function EachClassXl({}: Props) {
 						</div>
 					</div>
 				</div>
-			</a>
+			</Link>
 		</div>
 	)
 }
