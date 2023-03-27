@@ -1,17 +1,17 @@
 export interface User {
     _id: string;
-    display_name: string;
+    first_name: string;
+    last_name: string;
     avatar_url: string;
     username: string;
     password: string;
     email: string;
-    email_verified: boolean;
+    confirmed: boolean;
     verified: boolean;
     phone_number: string;
     phone_number_verified: boolean;
     suspended: boolean;
     last_seen: string;
-    provider: "facebook" | "google" | "local";
     createdAt: string;
     updatedAt: string;
 }

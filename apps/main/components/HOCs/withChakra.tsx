@@ -13,7 +13,7 @@ export const withChakra = (WrappedComponent: any) => {
 			error:any
 		) => {
 			return toast({
-				title: error?.response?.data?.error.message
+				title: error?.response?.data?.error.message || "Error, please try again"
 					?.replace('or Username', '')
 					.replace(`identifier`, 'email'),
 				status: 'error',

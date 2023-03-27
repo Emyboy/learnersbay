@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
+import { Button } from '@chakra-ui/react'
 
 type Props = {
 	onSubmit: (data: { identifier: string; password: string }) => void
 	loading: boolean
 }
 
-export default function LoginForm({ onSubmit }: Props) {
+export default function LoginForm({ onSubmit, loading }: Props) {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
@@ -60,14 +61,15 @@ export default function LoginForm({ onSubmit }: Props) {
 				</div>
 
 				<div className="col-12">
-					<button
+					<Button
 						type="submit"
 						name="submit"
 						id="submit"
 						className="button -md -purple-1 text-white fw-500 w-1/1"
+						isLoading={loading}
 					>
 						Login
-					</button>
+					</Button>
 				</div>
 			</form>
 
