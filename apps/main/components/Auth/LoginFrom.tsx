@@ -1,46 +1,47 @@
+import Link from 'next/link'
 import React from 'react'
 
 type Props = {}
 
 export default function LoginForm({}: Props) {
-  return (
+	return (
 		<>
 			<h3 className="text-30 lh-13">Login</h3>
 			<p className="mt-10">
 				Already have an account?{' '}
-				<a href="login.html" className="text-purple-1">
-					Log in
-				</a>
+				<Link href="/register" className="text-purple-1">
+					Register
+				</Link>
 			</p>
 
 			<form
 				className="contact-form respondForm__form row y-gap-20 pt-30"
 				action="#"
 			>
-				<div className="col-lg-6">
+				<div className="col-lg-12">
 					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
-						Email address *
+						Email address
 					</label>
-					<input type="text" name="title" placeholder="Name" />
+					<input
+						required
+						type="email"
+						name="email"
+						placeholder="Ex. joinDoe@mail.com"
+					/>
 				</div>
-				<div className="col-lg-6">
+
+				<div className="col-lg-12">
 					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
-						Username *
+						Password
 					</label>
-					<input type="text" name="title" placeholder="Name" />
+					<input
+						required
+						type="password"
+						name="password"
+						placeholder="* * * * * * *"
+					/>
 				</div>
-				<div className="col-lg-6">
-					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
-						Password *
-					</label>
-					<input type="text" name="title" placeholder="Name" />
-				</div>
-				<div className="col-lg-6">
-					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
-						Confirm Password *
-					</label>
-					<input type="text" name="title" placeholder="Name" />
-				</div>
+
 				<div className="col-12">
 					<button
 						type="submit"
@@ -53,7 +54,7 @@ export default function LoginForm({}: Props) {
 				</div>
 			</form>
 
-			<div className="lh-12 text-dark-1 fw-500 text-center mt-20">
+			{/* <div className="lh-12 text-dark-1 fw-500 text-center mt-20">
 				Or sign in using
 			</div>
 
@@ -68,7 +69,7 @@ export default function LoginForm({}: Props) {
 						Log In via Google+
 					</button>
 				</div>
-			</div>
+			</div> */}
 		</>
 	)
 }

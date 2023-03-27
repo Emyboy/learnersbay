@@ -22,7 +22,7 @@ export default withChakra(function SignupForm({ toast }: Props) {
 			if (password !== password_confirmation) {
 				return toast({
 					title: 'Password mismatch',
-					description: "Please check your password and try again",
+					description: 'Please check your password and try again',
 					status: 'error',
 					isClosable: true,
 				})
@@ -72,11 +72,15 @@ export default withChakra(function SignupForm({ toast }: Props) {
 				onSubmit={handleSubmit}
 			>
 				<div className="col-lg-6">
-					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
+					<label
+						htmlFor="first_name"
+						className="text-16 lh-1 fw-500 text-dark-1 mb-10"
+					>
 						First Name
 					</label>
 					<input
 						required
+						id="first_name"
 						type="text"
 						name="first_name"
 						placeholder="Ex John"
@@ -84,10 +88,14 @@ export default withChakra(function SignupForm({ toast }: Props) {
 					/>
 				</div>
 				<div className="col-lg-6">
-					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
+					<label
+						htmlFor="last_name"
+						className="text-16 lh-1 fw-500 text-dark-1 mb-10"
+					>
 						Last Name
 					</label>
 					<input
+						id="last_name"
 						required
 						type="text"
 						name="last_name"
@@ -96,10 +104,14 @@ export default withChakra(function SignupForm({ toast }: Props) {
 					/>
 				</div>
 				<div className="col-lg-12">
-					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
+					<label
+						htmlFor="email_address"
+						className="text-16 lh-1 fw-500 text-dark-1 mb-10"
+					>
 						Email address
 					</label>
 					<input
+						id="email_address"
 						required
 						type="email"
 						name="title"
@@ -109,10 +121,14 @@ export default withChakra(function SignupForm({ toast }: Props) {
 				</div>
 
 				<div className="col-lg-6">
-					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
+					<label
+						htmlFor="password"
+						className="text-16 lh-1 fw-500 text-dark-1 mb-10"
+					>
 						Password
 					</label>
 					<input
+						id="password"
 						required
 						type="password"
 						name="title"
@@ -121,10 +137,14 @@ export default withChakra(function SignupForm({ toast }: Props) {
 					/>
 				</div>
 				<div className="col-lg-6">
-					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
+					<label
+						htmlFor="confirm_password"
+						className="text-16 lh-1 fw-500 text-dark-1 mb-10"
+					>
 						Confirm Password
 					</label>
 					<input
+						id="confirm_password"
 						required
 						type="password"
 						name="title"
