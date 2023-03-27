@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, useToast } from '@chakra-ui/react'
+import { Alert, AlertDescription, AlertIcon, AlertTitle, Button, useToast, VStack } from '@chakra-ui/react'
 import Link from 'next/link'
 
 type Props = {
@@ -12,7 +12,7 @@ export default function SignupForm({ onSubmit,loading }: Props) {
 	const [last_name, setLastName] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-	const [password_confirmation, setPasswordConfirmation] = useState('')
+	const [password_confirmation, setPasswordConfirmation] = useState('');
 	const toast = useToast()
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -137,6 +137,17 @@ export default function SignupForm({ onSubmit,loading }: Props) {
 						onChange={(e) => setPasswordConfirmation(e.target.value)}
 					/>
 				</div>
+				<div>
+					<Alert status="error" rounded='xl'>
+						<AlertIcon />
+						<VStack>
+							{/* <AlertTitle>Your browser is outdated!</AlertTitle> */}
+							<AlertDescription>
+								By signing up you are accepting the terms.
+							</AlertDescription>
+						</VStack>
+					</Alert>
+				</div>
 				<div className="col-12">
 					<Button
 						className="button -md -purple-1 text-white fw-500 w-1/1"
@@ -145,7 +156,7 @@ export default function SignupForm({ onSubmit,loading }: Props) {
 						id="submit"
 						isLoading={loading}
 					>
-						Register
+						Accept and Register
 					</Button>
 				</div>
 			</form>

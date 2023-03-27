@@ -6,11 +6,12 @@ import { withChakra, withChakraProps } from '../components/HOCs/withChakra'
 import { API } from '../utils/API.utils'
 import Cookies from 'js-cookie'
 import { setAuthState } from '../redux/actions/auth.actions'
+import { AxiosError } from 'axios'
 
-export default withChakra(function Signup({ toast }:withChakraProps) {
-	const [loading, setLoading] = useState(false);
+export default withChakra(function Signup({ toast, showAxiosError }: withChakraProps) {
+	const [loading, setLoading] = useState(false)
 
-	const handleSubmit = async (data:any) => {
+	const handleSubmit = async (data: any) => {
 		try {
 			setLoading(true)
 			const res = await API(`/auth/local/register`, false, {
@@ -21,7 +22,8 @@ export default withChakra(function Signup({ toast }:withChakraProps) {
 
 			Cookies.set('auth_token', res.data.jwt)
 			setAuthState({ user: res.data.user })
-		} catch (error) {
+		} catch (error: any) {
+			showAxiosError(error)
 			setLoading(false)
 			return Promise.reject(error)
 		}
