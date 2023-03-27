@@ -1,14 +1,29 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 
-type Props = {}
+type Props = {
+	onSubmit: (data: { identifier: string; password: string }) => void
+	loading: boolean
+}
 
-export default function LoginForm({}: Props) {
+export default function LoginForm({ onSubmit }: Props) {
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		const data = {
+			identifier: email.trim().replace(/ /g, '').toLowerCase(),
+			password,
+		}
+		onSubmit(data)
+	}
+
 	return (
 		<>
 			<h3 className="text-30 lh-13">Login</h3>
 			<p className="mt-10">
-				Already have an account?{' '}
+				{`Don't`} have an account?{' '}
 				<Link href="/register" className="text-purple-1">
 					Register
 				</Link>
@@ -16,25 +31,27 @@ export default function LoginForm({}: Props) {
 
 			<form
 				className="contact-form respondForm__form row y-gap-20 pt-30"
-				action="#"
+				onSubmit={handleSubmit}
 			>
 				<div className="col-lg-12">
 					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
 						Email address
 					</label>
 					<input
+						onChange={(e) => setEmail(e.target.value)}
 						required
 						type="email"
 						name="email"
 						placeholder="Ex. joinDoe@mail.com"
 					/>
 				</div>
-
+				{/* { // todo - user should be able to view password } */}
 				<div className="col-lg-12">
 					<label className="text-16 lh-1 fw-500 text-dark-1 mb-10">
 						Password
 					</label>
 					<input
+						onChange={(e) => setPassword(e.target.value)}
 						required
 						type="password"
 						name="password"
@@ -49,7 +66,7 @@ export default function LoginForm({}: Props) {
 						id="submit"
 						className="button -md -purple-1 text-white fw-500 w-1/1"
 					>
-						Register
+						Login
 					</button>
 				</div>
 			</form>
