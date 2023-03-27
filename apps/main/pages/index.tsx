@@ -5,6 +5,7 @@ import HomeClasses from "../components/HomePage/HomeClasses/HomeClasses";
 import ClassCategories from "../components/HomePage/HomeClassCategories/HomeClassCategories";
 import HomeTestimonials from "../components/HomePage/HomeTestimonials/HomeTestimonials";
 import BecomeAnInstructor from "../components/HomePage/BecomeAnInstructor";
+import FAQs from "../components/HomePage/FAQs/FAQs";
 
 export default function Docs() {
   return (
@@ -15,6 +16,7 @@ export default function Docs() {
       <ClassCategories />
       <HomeTestimonials />
       <BecomeAnInstructor />
+      <FAQs />
     </MainLayout>
   );
 }
