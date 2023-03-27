@@ -1,60 +1,45 @@
 import React, { useState } from 'react'
-import { Button } from '@chakra-ui/react'
+import { Button, useToast } from '@chakra-ui/react'
 import Link from 'next/link'
-import { API } from '../../utils/API.utils'
-import Cookies from 'js-cookie'
-import { setAuthState } from '../../redux/actions/auth.actions'
-import { withChakra, withChakraProps } from '../HOCs/withChakra'
 
-type Props = {} & withChakraProps
+type Props = {
+	onSubmit: (data: any) => void
+	loading: boolean
+}
 
-export default withChakra(function SignupForm({ toast }: Props) {
+export default function SignupForm({ onSubmit,loading }: Props) {
 	const [first_name, setFirstName] = useState('')
 	const [last_name, setLastName] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [password_confirmation, setPasswordConfirmation] = useState('')
-	const [loading, setLoading] = useState(false)
+	const toast = useToast()
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		try {
-			if (password !== password_confirmation) {
-				return toast({
-					title: 'Password mismatch',
-					description: 'Please check your password and try again',
-					status: 'error',
-					isClosable: true,
-				})
-			}
-			setLoading(true)
-			const data = {
-				email: email.trim().replace(/ /g, '').toLowerCase(),
-				password,
-				first_name: first_name
-					.trim()
-					.split(' ')[0]
-					.toLowerCase()
-					.replace(/[^a-zA-Z ]/g, ''),
-				last_name: last_name
-					.trim()
-					.split(' ')[0]
-					.toLowerCase()
-					.replace(/[^a-zA-Z ]/g, ''),
-			}
-
-			const res = await API(`/auth/local/register`, false, {
-				data,
-				method: 'POST',
+		if (password !== password_confirmation) {
+			return toast({
+				title: 'Password mismatch',
+				description: 'Please check your password and try again',
+				status: 'error',
+				isClosable: true,
 			})
-			setLoading(false)
-
-			Cookies.set('auth_token', res.data.jwt)
-			setAuthState({ user: res.data.user })
-		} catch (error) {
-			setLoading(false)
-			return Promise.reject(error)
 		}
+		const data = {
+			email: email.trim().replace(/ /g, '').toLowerCase(),
+			password,
+			first_name: first_name
+				.trim()
+				.split(' ')[0]
+				.toLowerCase()
+				.replace(/[^a-zA-Z ]/g, ''),
+			last_name: last_name
+				.trim()
+				.split(' ')[0]
+				.toLowerCase()
+				.replace(/[^a-zA-Z ]/g, ''),
+		}
+		onSubmit(data)
 	}
 
 	return (
@@ -183,4 +168,4 @@ export default withChakra(function SignupForm({ toast }: Props) {
 			</div> */}
 		</>
 	)
-})
+}
