@@ -10,14 +10,21 @@ import {
 	Input,
 	Flex,
 	MenuDivider,
-	Icon
+	Icon,
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AppStore } from '../../interface'
-import { RiBellLine } from 'react-icons/ri'
+import {
+	RiNotification3Line,
+	RiUser3Line,
+	RiCalendarTodoLine,
+	RiSettings3Line,
+	RiLoginCircleLine,
+	RiDashboardLine,
+} from 'react-icons/ri'
 
 export default function NavBar() {
 	const navLinks = [
@@ -35,6 +42,8 @@ export default function NavBar() {
 		},
 	]
 
+	const iconSize = '20px'
+
 	const [showNav, setShowNav] = React.useState(false)
 	const { user } = useSelector((state: AppStore) => state.auth)
 	const [show, setShow] = useState(false)
@@ -47,7 +56,10 @@ export default function NavBar() {
 		return null
 	} else
 		return (
-			<div className="header -type-4 -shadow bg-white border-bottom-light js-header is-in-view">
+			<div
+				className="header -type-4 -shadow bg-white border-bottom-light js-header is-in-view"
+				style={{ zIndex: 50 }}
+			>
 				<Flex
 					height={['70px', '80px']}
 					alignItems="center"
@@ -84,7 +96,13 @@ export default function NavBar() {
 
 					<Box flex={1} className="lg:d-none">
 						<Box>
-							<Input placeholder="Search for anything" />
+							<Input
+								placeholder="Search for anything"
+								borderColor={'purple.500'}
+								borderWidth={'thin'}
+								rounded="50px"
+								height="50px"
+							/>
 						</Box>
 					</Box>
 					<Flex alignItems={'center'}>
@@ -196,7 +214,7 @@ export default function NavBar() {
 								right={'-91px'}
 							>
 								<Menu>
-									<MenuButton as={Box}>
+									<MenuButton as={Box} cursor={'pointer'}>
 										<Avatar
 											className="bg-purple-1 text-white"
 											name={user.first_name + ' ' + user.last_name}
@@ -214,24 +232,49 @@ export default function NavBar() {
 										className="header-cart- bg-white -dark-bg-dark-1 rounded-8"
 										minW="250px"
 									>
+										<Link href="/dashboard">
+											<MenuItem
+												className="text-dark-1 text-dark-1 fw-600 py-10"
+												icon={<Icon as={RiDashboardLine} fontSize={iconSize} />}
+											>
+												Dashboard
+											</MenuItem>
+										</Link>
 										<MenuItem
-											className="text-dark-1 text-dark-1 fw-600 py-8"
-											icon={<Icon as={RiBellLine} />}
+											className="text-dark-1 text-dark-1 fw-600 py-10"
+											icon={<Icon as={RiUser3Line} fontSize={iconSize} />}
+										>
+											Profile
+										</MenuItem>
+										<MenuItem
+											className="text-dark-1 text-dark-1 fw-600 py-10"
+											icon={
+												<Icon as={RiNotification3Line} fontSize={iconSize} />
+											}
 											command="3"
 										>
 											Notifications
 										</MenuItem>
-										<MenuItem className="text-dark-1 text-dark-1 fw-600 py-8">
-											Your Profile
-										</MenuItem>
-										<MenuItem className="text-dark-1 text-dark-1 fw-600 py-8">
+										<MenuItem
+											className="text-dark-1 text-dark-1 fw-600 py-10"
+											icon={
+												<Icon as={RiCalendarTodoLine} fontSize={iconSize} />
+											}
+										>
 											My Classes
 										</MenuItem>
-										<MenuItem className="text-dark-1 text-dark-1 fw-600 py-8">
+										<MenuItem
+											className="text-dark-1 text-dark-1 fw-600 py-10"
+											icon={<Icon as={RiSettings3Line} fontSize={iconSize} />}
+										>
 											Settings
 										</MenuItem>
+
 										<MenuDivider color="gray.100" />
-										<MenuItem className="text-dark-1 text-dark-1 fw-600 py-8">
+										<MenuItem
+											className="text-dark-1 text-dark-1 fw-600 py-10"
+											icon={<Icon as={RiLoginCircleLine} fontSize={iconSize} />}
+										>
 											Logout
 										</MenuItem>
 									</MenuList>

@@ -23,7 +23,7 @@ export default withChakra(function Login({ showAxiosError }: withChakraProps) {
 				data,
 				method: 'POST',
 			})
-			Cookies.set('auth_token', res.data.jwt)
+			Cookies.set('auth_token', res.data.jwt, { expires: 30 })
 			setAuthState({
 				user: res.data.user,
 			})
