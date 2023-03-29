@@ -7,15 +7,14 @@ import { API } from '../utils/API.utils'
 import Cookies from 'js-cookie'
 import { setAuthState } from '../redux/actions/auth.actions'
 import { withChakra, withChakraProps } from '../components/HOCs/withChakra'
-import { useSelector } from 'react-redux/es/exports'
 import { AppStore } from '../interface'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 
 export default withChakra(function Login({ showAxiosError }: withChakraProps) {
 	const [loading, setLoading] = React.useState(false)
 	const { user } = useSelector((state: AppStore) => state.auth)
 	const router = useRouter()
-	const afterLogin = localStorage.getItem('after_login')
 
 	const handleLogin = async (data: any) => {
 		try {
@@ -28,7 +27,7 @@ export default withChakra(function Login({ showAxiosError }: withChakraProps) {
 			setAuthState({
 				user: res.data.user,
 			})
-			router.push(afterLogin || '/')
+			router.push(localStorage.getItem('after_login') || '/')
 			setLoading(false)
 		} catch (error) {
 			setLoading(false)
@@ -38,7 +37,7 @@ export default withChakra(function Login({ showAxiosError }: withChakraProps) {
 	}
 
 	if (user) {
-		router.push(afterLogin || '/')
+		router.push(localStorage.getItem('after_login') || '/')
 		return null
 	}
 
