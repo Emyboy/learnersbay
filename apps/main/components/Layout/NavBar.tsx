@@ -10,12 +10,14 @@ import {
 	Input,
 	Flex,
 	MenuDivider,
+	Icon
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AppStore } from '../../interface'
+import { RiBellLine } from 'react-icons/ri'
 
 export default function NavBar() {
 	const navLinks = [
@@ -214,7 +216,7 @@ export default function NavBar() {
 									>
 										<MenuItem
 											className="text-dark-1 text-dark-1 fw-600 py-8"
-											 icon={<AddIcon />}
+											icon={<Icon as={RiBellLine} />}
 											command="3"
 										>
 											Notifications
