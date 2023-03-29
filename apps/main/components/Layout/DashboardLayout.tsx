@@ -1,4 +1,5 @@
 import React from 'react'
+import FooterNav from './FooterNav'
 import NavBar from './NavBar'
 import SideNav from './SideNav'
 
@@ -17,6 +18,7 @@ export default function DashboardLayout({ children }: Props) {
 						{children}
 					</div>
 				</div>
+                <FooterNav />
 			</div>
 		</main>
 	)
