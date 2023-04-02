@@ -1,8 +1,9 @@
+import ChatApp from '../apps/Chat/ChatApp'
 
 export default function Web() {
-  return (
-    <div>
-      <h1>Community</h1>
-    </div>
-  );
+	return (
+		<>
+			<ChatApp />
+		</>
+	)
 }
