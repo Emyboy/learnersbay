@@ -1,10 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { API } from '../../utils/API.utils'
 
 type Props = {}
 
 export default function ChatInput({}: Props) {
+	const [message_text, setMessageText] = useState('')
+
+	const handleSubmit = async () => {
+		try {
+			API(`/messages`, true, {
+				data: {
+					data: {
+						message_text,
+						from: 8,
+					},
+				},
+				method: 'POST',
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
 	return (
-		<div className="chat-footer relative flex h-12 w-full shrink-0 items-center justify-between border-t border-slate-150 bg-white px-[calc(var(--margin-x)-.25rem)] transition-[padding,width] duration-[.25s] dark:border-navy-600 dark:bg-navy-800">
+		<div className="chat-footer relative flex h-12- w-full shrink-0 items-center justify-between border-t border-slate-150 bg-white px-[calc(var(--margin-x)-.25rem)] transition-[padding,width] duration-[.25s] dark:border-navy-600 dark:bg-navy-800">
 			<div className="-ml-1.5 flex flex-1 space-x-2">
 				<button className="btn h-9 w-9 shrink-0 rounded-full p-0 text-slate-500 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:text-navy-200 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
 					<svg
@@ -23,10 +42,12 @@ export default function ChatInput({}: Props) {
 					</svg>
 				</button>
 
-				<input
-					type="text"
-					className="form-input h-9 w-full bg-transparent placeholder:text-slate-400/70"
-					placeholder="Write the message"
+				<textarea
+					className="form-input h-9 w-full is-scrollbar-hidden bg-transparent placeholder:text-slate-400/70"
+					placeholder="Start typing..."
+					rows={5}
+					style={{ resize: 'none' }}
+					onChange={(e) => setMessageText(e.target.value)}
 				/>
 			</div>
 
@@ -47,7 +68,10 @@ export default function ChatInput({}: Props) {
 						></path>
 					</svg>
 				</button>
-				<button className="btn h-9 w-9 shrink-0 rounded-full p-0 text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:text-accent-light dark:hover:bg-accent-light/20 dark:focus:bg-accent-light/20 dark:active:bg-accent-light/25">
+				<button
+					className="btn h-9 w-9 shrink-0 rounded-full p-0 text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:text-accent-light dark:hover:bg-accent-light/20 dark:focus:bg-accent-light/20 dark:active:bg-accent-light/25"
+					onClick={handleSubmit}
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						className="h-5.5 w-5.5"

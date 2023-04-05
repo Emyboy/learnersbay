@@ -1,10 +1,17 @@
+import Link from 'next/link'
 import React from 'react'
+import { ConversationData } from '../../../../interface/chat.interface'
 
-type Props = {}
+type Props = {
+	data: ConversationData
+}
 
-export default function EachConversation({}: Props) {
+export default function EachConversation({ data }: Props) {
 	return (
-		<div className="flex cursor-pointer items-center space-x-2.5 px-4 py-2.5 font-inter hover:bg-slate-150 dark:hover:bg-navy-600">
+		<Link
+			href={`/`}
+			className="flex cursor-pointer items-center space-x-2.5 px-4 py-2.5 font-inter hover:bg-slate-150 dark:hover:bg-navy-600"
+		>
 			<div className="avatar h-10 w-10">
 				<img
 					className="rounded-full"
@@ -31,6 +38,6 @@ export default function EachConversation({}: Props) {
 					</div>
 				</div>
 			</div>
-		</div>
+		</Link>
 	)
 }
