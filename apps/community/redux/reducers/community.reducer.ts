@@ -1,10 +1,10 @@
 import { CommunityData } from '../../interface/community.interface';
 
-export interface ChatState {
+export interface CommunityState {
     community_list: CommunityData[];
 }
 
-const initialState: ChatState = {
+const initialState: CommunityState = {
     community_list: [],
 };
 

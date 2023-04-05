@@ -13,4 +13,5 @@ export interface ChatData {
 export interface ConversationData {
     id: number;
     participants: User[];
+    uuid: string;
 } 

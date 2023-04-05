@@ -25,7 +25,7 @@ export const getAuthDependencies = async () => {
             LiveConnect.initialize();
             const dependencies: any = await API(`/member/dependencies`, true);
             setCommunityState({
-                community_list: dependencies.data.memberships,
+                community_list: dependencies.data.communities,
             });
         } catch (error) {
             // todo - logout if unauthorized

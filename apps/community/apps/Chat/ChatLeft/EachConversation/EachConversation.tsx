@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { ConversationData } from '../../../../interface/chat.interface'
 
@@ -7,9 +8,11 @@ type Props = {
 }
 
 export default function EachConversation({ data }: Props) {
+	const router = useRouter()
+	const {community_id} = router.query;
 	return (
 		<Link
-			href={`/`}
+			href={`/chat/${community_id}/${data.uuid}`}
 			className="flex cursor-pointer items-center space-x-2.5 px-4 py-2.5 font-inter hover:bg-slate-150 dark:hover:bg-navy-600"
 		>
 			<div className="avatar h-10 w-10">

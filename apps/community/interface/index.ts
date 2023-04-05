@@ -9,3 +9,17 @@ export interface AppStore {
     community: CommunityState,
     chat: ChatState
 }
+
+export interface StrapiFile {
+    id: number;
+    name: string;
+    url: string;
+    formats: {
+        thumbnail: StrapiFileFormat;
+    };
+}
+
+export interface StrapiFileFormat {
+    ext: string;
+    url: string;
+}
