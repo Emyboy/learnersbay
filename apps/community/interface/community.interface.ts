@@ -17,3 +17,9 @@ export interface ChannelData {
     slug: string;
     uuid: string;
 }
+
+export interface CommunityMembership {
+    id: number;
+    community: CommunityData;
+    full_name: string;
+}

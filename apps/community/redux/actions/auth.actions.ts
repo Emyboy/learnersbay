@@ -20,12 +20,13 @@ export const getAuthDependencies = async () => {
             });
             const me = await API(`/users/me`, true);
             setAuthState({
-                user: me.data
-            })
+                user: me.data,
+            });
             LiveConnect.initialize();
             const dependencies: any = await API(`/member/dependencies`, true);
             setCommunityState({
                 community_list: dependencies.data.communities,
+                community_memberships: dependencies.data.memberships,
             });
         } catch (error) {
             // todo - logout if unauthorized

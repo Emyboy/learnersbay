@@ -4,20 +4,22 @@ import * as cookie from 'cookie';
 
 export default function ChannelUUID({
     communityDependency,
-    unreadMessages,
+    channelDependency,
 }: any) {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        setMessages(unreadMessages)
-        console.log(unreadMessages)
-    }, [unreadMessages]);
+        setMessages(channelDependency.messages)
+        console.log(channelDependency)
+    }, [channelDependency]);
+
 
     return (
         <>
             <ChatApp
                 communityDependency={communityDependency}
                 unread_messages={messages}
+                channelDependency={channelDependency}
             />
         </>
     );
@@ -39,9 +41,9 @@ export async function getServerSideProps(ctx: any) {
 
     const communityDependency = await communityDependencyRequests.json();
 
-    const unreadMessagesRequest = await fetch(
+    const channelDependencyRequest = await fetch(
         process.env.NEXT_PUBLIC_API_URL +
-            `/channel/messages/unread/${channel_uuid}`,
+            `/channel/dependencies/${channel_uuid}`,
         {
             headers: {
                 authorization: 'Bearer ' + parsedCookies?.auth_token,
@@ -50,8 +52,8 @@ export async function getServerSideProps(ctx: any) {
         },
     );
 
-    const unreadMessages = await unreadMessagesRequest.json();
+    const channelDependency = await channelDependencyRequest.json();
 
     // Pass data to the page via props
-    return {props: {communityDependency, unreadMessages}};
+    return {props: {communityDependency, channelDependency}};
 }
