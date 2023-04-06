@@ -1,11 +1,13 @@
 import { ChatData } from '../../interface/chat.interface'
 
 export interface ChatState {
-	chat_list: ChatData[]
+	chat_list: ChatData[],
+	incoming_message_id: number | null
 }
 
 const initialState: ChatState = {
 	chat_list: [],
+	incoming_message_id: null
 }
 
 export default (

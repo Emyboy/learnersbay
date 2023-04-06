@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {API} from '../../utils/API.utils';
 import {useRouter} from 'next/router';
 import {useSelector} from 'react-redux';
@@ -11,7 +11,6 @@ type Props = {
 export default function ChatInput({channelDependency}: Props) {
     const [message_text, setMessageText] = useState('');
     const router = useRouter();
-    const {community_uuid, channel_uuid} = router.query;
     const {community_memberships} = useSelector(
         (state: AppStore) => state.community,
     );
@@ -28,7 +27,6 @@ export default function ChatInput({channelDependency}: Props) {
                 channel: channelDependency.channel.id,
                 community: channelDependency.channel.community?.id,
             };
-            console.log('SENDING --', data);
             const res = await API(`/messages`, true, {
                 data: {
                     data,
