@@ -1,4 +1,4 @@
-import { StrapiFile } from ".";
+import {StrapiFile} from '.';
 
 export interface CommunityData {
     id: number;
@@ -8,5 +8,12 @@ export interface CommunityData {
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
-    community_logo: StrapiFile
+    community_logo: StrapiFile;
+}
+
+export interface ChannelData {
+    id: number;
+    name: string;
+    slug: string;
+    uuid: string;
 }

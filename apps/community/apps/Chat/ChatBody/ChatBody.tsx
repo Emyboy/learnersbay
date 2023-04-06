@@ -3,12 +3,17 @@ import ChatDayCategory from './ChatDayCategory'
 import IncomingChat from './EachChat/IncomingChat'
 import OutGoingChat from './EachChat/OutGoingChat'
 
-type Props = {}
+type Props = {
+	messages?: any[]
+}
 
-export default function ChatBody({}: Props) {
+export default function ChatBody({messages}: Props) {
   return (
 		<div className="grow overflow-y-auto px-[calc(var(--margin-x)-.5rem)] py-5 transition-all duration-[.25s] scrollbar-sm">
-			<ChatDayCategory />
+			{ messages?.map(message =>{
+				return <IncomingChat message={message} />
+			})}
+			{/* <ChatDayCategory />
 			<IncomingChat />
 			<IncomingChat />
 			<IncomingChat />
@@ -25,7 +30,7 @@ export default function ChatBody({}: Props) {
 			<IncomingChat />
 			<ChatDayCategory />
 			<IncomingChat />
-			<IncomingChat />
+			<IncomingChat /> */}
 		</div>
 	)
 }

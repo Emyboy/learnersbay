@@ -1,5 +1,12 @@
 ## Getting Started
 
+### Todo
+- store errors on db
+- create reusable function for fetching (for all page files)
+- review code for member dependencies
+- review code for community dependencies API
+- make sure communityDependency is always complete
+
 First, run the development server:
 
 ```bash
