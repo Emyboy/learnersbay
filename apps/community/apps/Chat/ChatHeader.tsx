@@ -1,8 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { AppStore } from '../../interface'
 
 type Props = {}
 
 export default function ChatHeader({}: Props) {
+	const { user } = useSelector((state: AppStore) => state.auth)
 	return (
 		<div className="chat-header relative z-10 flex h-[61px] w-full shrink-0 items-center justify-between border-b border-slate-150 bg-white px-[calc(var(--margin-x)-.5rem)] shadow-sm transition-[padding,width] duration-[.25s] dark:border-navy-700 dark:bg-navy-800">
 			<div className="flex items-center space-x-5">
@@ -26,7 +29,7 @@ export default function ChatHeader({}: Props) {
 							className="font-medium text-slate-700 line-clamp-1 dark:text-navy-100"
 							x-text="activeChat.name"
 						>
-							Alfredo Elliott
+							{user?.first_name}
 						</p>
 						<p className="mt-0.5 text-xs">Last seen recently</p>
 					</div>

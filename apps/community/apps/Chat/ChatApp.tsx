@@ -40,10 +40,10 @@ export default function ChatApp({
 
     return (
         <div>
-            <ChatAppLeft
+            {/* <ChatAppLeft
                 community_id={community_uuid}
                 communityDependency={communityDependency}
-            />
+            /> */}
             <main className="main-content h-100vh chat-app mt-0 flex w-full flex-col lg:mr-80">
                 <ChatHeader />
                 <ChatBody messages={unread_messages} />

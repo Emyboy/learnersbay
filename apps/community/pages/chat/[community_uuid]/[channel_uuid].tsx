@@ -10,7 +10,6 @@ export default function ChannelUUID({
 
     useEffect(() => {
         setMessages(channelDependency.messages)
-        console.log(channelDependency)
     }, [channelDependency]);
 
 

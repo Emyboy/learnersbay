@@ -27,6 +27,7 @@ export default function ChatInput({channelDependency}: Props) {
                 channel: channelDependency.channel.id,
                 community: channelDependency.channel.community?.id,
             };
+            console.log('SENDING --', data)
             const res = await API(`/messages`, true, {
                 data: {
                     data,

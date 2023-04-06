@@ -2,10 +2,10 @@
 
 ### Todo
 - store errors on db
-- create reusable function for fetching (for all page files)
 - review code for member dependencies
 - review code for community dependencies API
 - make sure communityDependency is always complete
+- check if channel exist before loading dependencies
 
 First, run the development server:
 
