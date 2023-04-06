@@ -1,7 +1,7 @@
 import React from 'react';
-import ChatApp from '../apps/Chat/ChatApp';
+import ChatApp from '../../apps/Chat/ChatApp';
 
-export default function page() {
+export default function index() {
     return (
         <>
             <ChatApp />

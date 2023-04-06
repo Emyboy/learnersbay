@@ -1,4 +1,5 @@
 import {Link} from '@chakra-ui/next-js';
+import { Tooltip } from '@chakra-ui/react';
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {AppStore} from '../../../interface';
@@ -12,7 +13,7 @@ export default function ChatAppLeftCommunities({}: Props) {
         <div className="main-sidebar">
             <div className="flex h-full w-full flex-col items-center border-r border-slate-150 bg-white dark:border-navy-700 dark:bg-navy-800">
                 <div className="flex pt-4">
-                    <Link href='/'>
+                    <Link href="/">
                         <img
                             className="h-11 w-11 transition-transform duration-500 ease-in-out hover:rotate-[360deg]"
                             src="/assets/images/app-logo.svg"
@@ -256,14 +257,16 @@ export default function ChatAppLeftCommunities({}: Props) {
 
 const EachCommunity = ({data}: {data: CommunityData}) => {
     return (
-        <Link
-            href={`/chat/${data.uuid}`}
-            className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90 bg-img"
-            style={{
-                backgroundImage: `url(${
-                    process.env.NEXT_PUBLIC_BACKEND_URL +
-                    data.community_logo.url
-                })`,
-            }}></Link>
+        <Tooltip label={data.name} placement="right" fontSize="md">
+            <Link
+                href={`/chat/${data.uuid}`}
+                className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90 bg-img"
+                style={{
+                    backgroundImage: `url(${
+                        process.env.NEXT_PUBLIC_BACKEND_URL +
+                        data.community_logo.url
+                    })`,
+                }}></Link>
+        </Tooltip>
     );
 };

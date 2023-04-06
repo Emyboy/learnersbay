@@ -6,23 +6,38 @@ import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';
 import ChatAppRight from './ChatRight/ChatAppRight';
 import {ChannelData, CommunityData} from '../../interface/community.interface';
-import {CommunityDependencies} from '../../interface';
+import {AppStore, CommunityDependencies} from '../../interface';
+import {useSelector} from 'react-redux';
+import {Box, Text} from '@chakra-ui/react';
+import {useRouter} from 'next/router';
 
 type Props = {
     communityDependency?: CommunityDependencies;
-    community_id?: string;
     unread_messages?: any[];
 };
 
-export default function ChatApp({
-    community_id,
-    communityDependency,
-    unread_messages,
-}: Props) {
+export default function ChatApp({communityDependency, unread_messages}: Props) {
+    const {connected} = useSelector((state: AppStore) => state.view);
+    const router = useRouter();
+    const {community_uuid} = router.query;
+
+    if (!connected) {
+        return (
+            <Box
+                display={'flex'}
+                justifyContent="center"
+                alignItems={'center'}
+                h="100vh"
+                w="100vh">
+                <Text>Reconnecting...</Text>
+            </Box>
+        );
+    }
+
     return (
-        <div className="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900">
+        <div>
             <ChatAppLeft
-                community_id={community_id}
+                community_id={community_uuid}
                 communityDependency={communityDependency}
             />
             <main className="main-content h-100vh chat-app mt-0 flex w-full flex-col lg:mr-80">
@@ -30,7 +45,7 @@ export default function ChatApp({
                 <ChatBody messages={unread_messages} />
                 <ChatInput />
             </main>
-            <ChatAppRight />
+            {/* <ChatAppRight /> */}
         </div>
     );
 }

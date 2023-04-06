@@ -1,14 +1,14 @@
 export interface ViewState {
 	show_search_popup: boolean
 	show_side_nav: boolean
-	connection_lost: boolean
+	connected: boolean
 	app_loading: boolean
 }
 
 const initialState: ViewState = {
 	show_search_popup: false,
 	show_side_nav: true,
-	connection_lost: false,
+	connected: false,
 	app_loading: true,
 }
 

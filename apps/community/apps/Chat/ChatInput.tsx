@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { API } from '../../utils/API.utils'
+import { useRouter} from 'next/router'
 
-type Props = {}
+type Props = {
+}
 
 export default function ChatInput({}: Props) {
-	const [message_text, setMessageText] = useState('')
+	const [message_text, setMessageText] = useState('');
+	const router = useRouter()
+	const { community_uuid, channel_uuid } = router.query
+
 
 	const handleSubmit = async () => {
 		try {
