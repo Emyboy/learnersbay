@@ -27,21 +27,19 @@ export default function ChatInput({channelDependency}: Props) {
                 channel: channelDependency.channel.id,
                 community: channelDependency.channel.community?.id,
             };
-            console.log('SENDING --', data)
-            const res = await API(`/messages`, true, {
+            await API(`/messages`, true, {
                 data: {
                     data,
                 },
                 method: 'POST',
             });
-            console.log(res.data);
         } catch (error) {
             console.log(error);
         }
     };
 
     return (
-        <div className="chat-footer relative flex h-12- w-full shrink-0 items-center justify-between border-t border-slate-150 bg-white px-[calc(var(--margin-x)-.25rem)] transition-[padding,width] duration-[.25s] dark:border-navy-600 dark:bg-navy-800">
+        <div className="chat-footer relative flex h-[61px] w-full shrink-0 items-center justify-between border-t border-slate-150 bg-white px-[calc(var(--margin-x)-.25rem)] transition-[padding,width] duration-[.25s] dark:border-navy-600 dark:bg-navy-800">
             <div className="-ml-1.5 flex flex-1 space-x-2">
                 <button className="btn h-9 w-9 shrink-0 rounded-full p-0 text-slate-500 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:text-navy-200 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
                     <svg
@@ -65,6 +63,7 @@ export default function ChatInput({channelDependency}: Props) {
                     style={{resize: 'none'}}
                     onChange={e => setMessageText(e.target.value)}
                 />
+               
             </div>
 
             <div className="-mr-1.5 flex">

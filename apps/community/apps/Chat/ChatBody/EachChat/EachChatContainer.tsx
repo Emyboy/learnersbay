@@ -2,8 +2,16 @@ import {useRouter} from 'next/router';
 import React from 'react';
 import {CommunityMembership} from '../../../../interface/community.interface';
 import {getCommunityMembership} from '../../../../redux/actions/community.action';
-import IncomingChat from './IncomingChat';
-import OutGoingChat from './OutGoingChat';
+import dynamic from 'next/dynamic';
+import EachChatLoading from './EachChatLoading';
+const IncomingChat = dynamic(() => import('./IncomingChat'), {
+    loading: () => <EachChatLoading />,
+});
+const OutGoingChat = dynamic(() => import('./OutGoingChat'), {
+    loading: () => <EachChatLoading />,
+});
+// import IncomingChat from './IncomingChat';
+// import OutGoingChat from './OutGoingChat';
 
 type Props = {
     message: any;

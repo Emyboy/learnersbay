@@ -18,8 +18,10 @@ export default function AuthenticatingPopup({}: Props) {
     return (
         <Modal isOpen={app_loading} onClose={() => {}} size="full">
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent rounded='none'>
                 <ModalBody
+                    className="card border border-slate-150 px-4 py-4 shadow-none dark:border-navy-600 sm:px-5"
+                    rounded={'none'}
                     display={'flex'}
                     justifyContent="center"
                     alignItems={'center'}>

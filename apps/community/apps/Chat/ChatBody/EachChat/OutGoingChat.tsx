@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
+import {ChatWrapper} from './ChatWrapper';
 
 type Props = {
     message: any;
@@ -14,8 +16,14 @@ export default function OutGoingChat({message}: Props) {
                     </div>
                 </div> */}
                 <div className="ml-4 max-w-lg sm:ml-10">
-                    <div className="rounded-2xl rounded-tr-none bg-info/10 p-3 text-slate-700 shadow-sm dark:bg-accent dark:text-white">
-                        {message.message_text}
+                    <div
+                        className="rounded-2xl rounded-tr-none bg-info/10 p-3 text-slate-700 shadow-sm dark:bg-accent dark:text-white"
+                        style={{overflowWrap: `break-word`}}>
+                        <ChatWrapper>
+                            <ReactMarkdown>
+                                {message?.message_text}
+                            </ReactMarkdown>
+                        </ChatWrapper>
                     </div>
                     <p className="mt-1 ml-auto text-left text-xs text-slate-400 dark:text-navy-300">
                         08:16

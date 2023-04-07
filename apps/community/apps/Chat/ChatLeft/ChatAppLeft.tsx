@@ -34,6 +34,7 @@ export default function ChatAppLeft({
                     </div>
                     <div className="flex h-[calc(100%-4.5rem)] grow flex-col">
                         <ChatAppLeftSearch />
+                        
                         <ChatAppLeftList
                             communityDependency={communityDependency}
                         />
