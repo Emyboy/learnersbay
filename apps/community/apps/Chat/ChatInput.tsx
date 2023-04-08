@@ -1,23 +1,36 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {API} from '../../utils/API.utils';
-import {useRouter} from 'next/router';
 import {useSelector} from 'react-redux';
 import {AppStore} from '../../interface';
+import {Box} from '@chakra-ui/react';
 
 type Props = {
     channelDependency: any;
 };
 
+// document.addEventListener('keydown', function (event) {
+//     if (event.ctrlKey && event.key === 'Enter') {
+//         console.log('SENDING');
+//     }
+// });
+
 export default function ChatInput({channelDependency}: Props) {
     const [message_text, setMessageText] = useState('');
-    const router = useRouter();
+    const [inputHeight, setInputHeight] = useState('70px');
     const {community_memberships} = useSelector(
         (state: AppStore) => state.community,
     );
-
     const communityMembership = community_memberships.filter(
         x => x.community?.id,
     )[0];
+
+    useEffect(() => {
+        if (message_text.length > 289) {
+            setInputHeight('200px');
+        } else {
+            setInputHeight('70px');
+        }
+    }, [message_text]);
 
     const handleSubmit = async () => {
         try {
@@ -44,9 +57,15 @@ export default function ChatInput({channelDependency}: Props) {
         }
     };
 
+    useEffect(() => {
+        console.log('called')
+    }, []);
+
     return (
-        <div className="chat-footer relative flex h-[61px] w-full shrink-0 items-center justify-between border-t border-slate-150 bg-white px-[calc(var(--margin-x)-.25rem)] transition-[padding,width] duration-[.25s] dark:border-navy-600 dark:bg-navy-800">
-            <div className="-ml-1.5 flex flex-1 space-x-2">
+        <Box
+            className={`chat-footer relative flex  w-full shrink-0 items-center justify-between border-t border-slate-150 bg-white px-[calc(var(--margin-x)-.25rem)] transition-[padding,width] duration-[.25s] dark:border-navy-600 dark:bg-navy-800`}
+            height={inputHeight}>
+            <div className="-ml-1.5 flex flex-1 space-x-2 h-full py-2">
                 <button className="btn h-9 w-9 shrink-0 rounded-full p-0 text-slate-500 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:text-navy-200 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -63,10 +82,14 @@ export default function ChatInput({channelDependency}: Props) {
                 </button>
 
                 <textarea
-                    className="form-input h-9 w-full is-scrollbar-hidden bg-transparent placeholder:text-slate-400/70"
+                    className="form-input w-full is-scrollbar-hidden bg-transparent placeholder:text-slate-400/70 p-2"
                     placeholder="Start typing..."
-                    rows={5}
-                    style={{resize: 'none'}}
+                    // rows={1}
+                    style={{
+                        resize: 'none',
+                        // height: '100%',
+                        backgroundColor: '#192132',
+                    }}
                     onChange={e => setMessageText(e.target.value)}
                 />
             </div>
@@ -103,6 +126,6 @@ export default function ChatInput({channelDependency}: Props) {
                     </svg>
                 </button>
             </div>
-        </div>
+        </Box>
     );
 }

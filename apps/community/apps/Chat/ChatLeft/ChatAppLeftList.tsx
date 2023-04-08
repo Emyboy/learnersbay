@@ -2,7 +2,12 @@ import {Text} from '@chakra-ui/react';
 import Link from 'next/link';
 import React, {useEffect, useState} from 'react';
 import {CommunityDependencies} from '../../../interface';
-import EachConversation from './EachConversation/EachConversation';
+// import EachConversation from './EachConversation/EachConversation';
+import dynamic from 'next/dynamic';
+
+const EachConversation = dynamic(
+    () => import('./EachConversation/EachConversation')
+);
 import _Accordion from '../../../atoms/Accordion/_Accordion';
 import {ConversationData} from '../../../interface/chat.interface';
 

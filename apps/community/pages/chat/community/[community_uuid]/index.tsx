@@ -11,21 +11,30 @@ export default function index({communityDependency}: any) {
 }
 
 export async function getServerSideProps(ctx: any) {
-    const {community_uuid} = ctx.params;
-    const parsedCookies = cookie.parse(ctx.req.headers.cookie);
-    const communityDependencyRequests = await fetch(
-        process.env.NEXT_PUBLIC_API_URL +
-            `/community/dependencies/${community_uuid}`,
-        {
-            headers: {
-                authorization: 'Bearer ' + parsedCookies?.auth_token,
+    try {
+        const {community_uuid} = ctx.params;
+        const parsedCookies = cookie.parse(ctx.req.headers.cookie);
+        const communityDependencyRequests = await fetch(
+            process.env.NEXT_PUBLIC_API_URL +
+                `/community/dependencies/${community_uuid}`,
+            {
+                headers: {
+                    authorization: 'Bearer ' + parsedCookies?.auth_token,
+                },
+                cache: 'no-store',
             },
-            cache: 'no-store',
-        },
-    );
+        );
 
-    const communityDependency = await communityDependencyRequests.json();
+        const communityDependency = await communityDependencyRequests.json();
 
-    // Pass data to the page via props
-    return {props: {communityDependency}};
+        // Pass data to the page via props
+        return {props: {communityDependency}};
+    } catch (error) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        };
+    }
 }

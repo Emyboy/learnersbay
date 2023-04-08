@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {LoginForm} from 'ui';
 import {useSelector} from 'react-redux';
 import {AppStore} from '../interface';
@@ -13,9 +13,9 @@ const ChannelSelector = dynamic(
 import * as cookie from 'cookie';
 import {Box, Button, Flex} from '@chakra-ui/react';
 import {CommunityData} from '../interface/community.interface';
-import { setCommunityState } from '../redux/actions/community.action';
-import { useRouter } from 'next/router';
-import { logout } from '../redux/actions/auth.actions';
+import {setCommunityState} from '../redux/actions/community.action';
+import {useRouter} from 'next/router';
+import {logout} from '../redux/actions/auth.actions';
 
 export default function index({login}: any) {
     const {community_list} = useSelector((state: AppStore) => state.community);
@@ -24,19 +24,27 @@ export default function index({login}: any) {
     );
     const router = useRouter();
     const saveAuthToken = (data: any) => {
-        Cookies.set('auth_token', data.jwt);
+        Cookies.set('auth_token', data.jwt, {expires: 30});
         window.location.reload();
     };
 
+    useEffect(() => {
+        const com = localStorage.getItem('communities');
+        if(com){
+            setSelectedCommunity(
+                JSON.parse(com),
+            );
+        }
+    }, []);
 
 
     const openChat = () => {
         setCommunityState({
-            selectedCommunities: selectedCommunity
+            selectedCommunities: selectedCommunity,
         });
-        localStorage.setItem("communities", JSON.stringify(selectedCommunity));
-        router.push(`/chat/community/${selectedCommunity[0].uuid}`)
-    }
+        localStorage.setItem('communities', JSON.stringify(selectedCommunity));
+        router.push(`/chat/community/${selectedCommunity[0].uuid}`);
+    };
 
     return (
         <>
@@ -102,6 +110,5 @@ export async function getServerSideProps(ctx: any) {
         }
     } catch (error) {
         return {props: {login: false}};
-        
     }
 }

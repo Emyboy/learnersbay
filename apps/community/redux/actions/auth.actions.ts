@@ -40,6 +40,7 @@ export const getAuthDependencies = async () => {
 
 export const logout = async () => {
     localStorage.clear();
+    sessionStorage.clear();
     Cookies.remove('auth_token')
     window.location.reload();
 };

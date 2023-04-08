@@ -15,4 +15,6 @@ export interface ConversationData {
     id: number;
     participants: CommunityMembership[];
     uuid: string;
+    updatedAt: string;
+    createdAt: string;
 } 

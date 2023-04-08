@@ -15,7 +15,7 @@ export default function EachConversation({ data }: Props) {
 	const router = useRouter()
 	const {community_uuid} = router.query;
 	const membership = getCommunityMembership(String(community_uuid));
-	const otherPerson:CommunityMembership = data.participants.filter(x => x.id === membership.id)[0];
+	const otherPerson:CommunityMembership = data?.participants?.filter(x => x?.id === membership?.id)[0];
 
 	return (
         <Link
@@ -37,7 +37,7 @@ export default function EachConversation({ data }: Props) {
                         {otherPerson.full_name}
                     </p>
                     <span className="text-tiny+ text-slate-400 dark:text-navy-300 line-clamp-1">
-                        {moment(data.updatedAt).fromNow()}
+                        {moment(data?.updatedAt).fromNow()}
                     </span>
                 </div>
                 <div className="mt-1 flex items-center justify-between space-x-1">

@@ -2,7 +2,6 @@ import {Box, Button, Center, Icon} from '@chakra-ui/react';
 import React from 'react';
 import {CommunityData} from '../../interface/community.interface';
 import {RxPlusCircled} from 'react-icons/rx';
-import Cookies from 'js-cookie';
 import {getCommunityMembership} from '../../utils/Community.utils';
 import _Avatar from '../../atoms/_Avatar';
 import moment from 'moment';
@@ -19,10 +18,6 @@ export default function ChannelSelector({
     selectedCommunity,
     onClick,
 }: Props) {
-    const logout = () => {
-        Cookies.remove('auth_token');
-        window.location.reload();
-    };
 
     return (
         <>
@@ -69,7 +64,7 @@ export default function ChannelSelector({
                             key={item.uuid}
                             data={item}
                             onClick={onClick}
-                            isSelected={selectedCommunity.includes(item)}
+                            isSelected={selectedCommunity.filter(x => x.uuid === item.uuid).length > 0}
                         />
                     );
                 })}
