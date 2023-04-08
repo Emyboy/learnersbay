@@ -2,3 +2,7 @@
     background-size: contain;
     background-position: center;
 }
+
+.__next {
+    min-height: 100vh;
+}

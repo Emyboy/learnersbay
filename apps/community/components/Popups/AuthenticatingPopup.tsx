@@ -13,7 +13,7 @@ type Props = {};
 
 export default function AuthenticatingPopup({}: Props) {
     const {app_loading} = useSelector((state: AppStore) => state.view);
-	
+
 
     return (
         <Modal isOpen={app_loading} onClose={() => {}} size="full">

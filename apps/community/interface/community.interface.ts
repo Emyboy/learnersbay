@@ -9,6 +9,7 @@ export interface CommunityData {
     updatedAt: string;
     publishedAt: string;
     community_logo: StrapiFile;
+    thumbnail: string;
 }
 
 export interface ChannelData {
