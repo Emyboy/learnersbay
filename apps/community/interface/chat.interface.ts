@@ -1,4 +1,5 @@
 import { User } from "./auth.interface";
+import { CommunityMembership } from "./community.interface";
 
 export interface ChatData {
     id: number;
@@ -12,6 +13,6 @@ export interface ChatData {
 
 export interface ConversationData {
     id: number;
-    participants: User[];
+    participants: CommunityMembership[];
     uuid: string;
 } 

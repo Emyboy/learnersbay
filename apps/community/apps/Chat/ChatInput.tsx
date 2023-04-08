@@ -33,6 +33,12 @@ export default function ChatInput({channelDependency}: Props) {
                 },
                 method: 'POST',
             });
+            var element = document.querySelector('#chat-end');
+            if (element) {
+                setTimeout(() => {
+                    element?.scrollIntoView({behavior: 'smooth'});
+                }, 1000);
+            }
         } catch (error) {
             console.log(error);
         }
@@ -63,7 +69,6 @@ export default function ChatInput({channelDependency}: Props) {
                     style={{resize: 'none'}}
                     onChange={e => setMessageText(e.target.value)}
                 />
-               
             </div>
 
             <div className="-mr-1.5 flex">

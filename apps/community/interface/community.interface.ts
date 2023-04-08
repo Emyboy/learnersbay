@@ -23,4 +23,9 @@ export interface CommunityMembership {
     id: number;
     community: CommunityData;
     full_name: string;
+    avatar_url: string;
+    last_seen: string;
+    membership_status: 'unsubscribed' | 'subscribed' | 'suspended';
+    createdAt: string;
+    updatedAt: string;
 }

@@ -2,16 +2,18 @@ import {Text} from '@chakra-ui/react';
 import Link from 'next/link';
 import React, {useEffect, useState} from 'react';
 import {CommunityDependencies} from '../../../interface';
-import {ChannelData} from '../../../interface/community.interface';
 import EachConversation from './EachConversation/EachConversation';
-import _Accordion from '../../../components/Accordion/_Accordion';
+import _Accordion from '../../../atoms/Accordion/_Accordion';
+import {ConversationData} from '../../../interface/chat.interface';
 
 type Props = {
     communityDependency?: CommunityDependencies;
 };
 
 export default function ChatAppLeftList({communityDependency}: Props) {
-    const [list, setList] = useState([]);
+    const [list, setList] = useState<ConversationData[] | undefined>(
+        communityDependency?.conversations,
+    );
 
     return (
         <div className="is-scrollbar-hidden mt-3 flex grow flex-col overflow-y-auto">
@@ -20,25 +22,28 @@ export default function ChatAppLeftList({communityDependency}: Props) {
                 <EachShortcut />
                 <EachShortcut />
             </ul>
-            <_Accordion>
+            <_Accordion title="Channels">
                 {communityDependency?.channels?.map(channel => {
                     return (
                         <Link
-                            href={`/chat/${communityDependency.community.uuid}/${channel.uuid}`}
+                            href={`/chat/community/${communityDependency.community.uuid}/${channel.uuid}`}
                             className="flex cursor-pointer items-center space-x-2.5 px-4 py-2.5 font-inter hover:bg-slate-150 dark:hover:bg-navy-600"
                             key={channel.uuid}>
                             <Text fontWeight={'bold'}># {channel.slug}</Text>
                         </Link>
                     );
                 })}
-                {list.map((conversation, index) => {
-                    return (
-                        <EachConversation
-                            key={`conv-${index}`}
-                            data={conversation}
-                        />
-                    );
-                })}
+            </_Accordion>
+            <_Accordion title="Direct Messages">
+                {list &&
+                    list.map((conversation, index) => {
+                        return (
+                            <EachConversation
+                                key={`conv-${index}`}
+                                data={conversation}
+                            />
+                        );
+                    })}
             </_Accordion>
         </div>
     );

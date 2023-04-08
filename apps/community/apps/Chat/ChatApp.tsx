@@ -1,7 +1,10 @@
 'use client';
 import React, {useEffect, useState} from 'react';
 import ChatAppLeft from './ChatLeft/ChatAppLeft';
-import ChatBody from './ChatBody/ChatBody';
+// import ChatBody from './ChatBody/ChatBody';
+import dynamic from 'next/dynamic';
+
+const ChatBody = dynamic(() => import('./ChatBody/ChatBody'));
 import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';
 
@@ -25,7 +28,7 @@ export default function ChatApp({
 }: Props) {
     const {connected} = useSelector((state: AppStore) => state.view);
     const router = useRouter();
-    const {community_uuid} = router.query;
+    const {community_uuid, channel_uuid} = router.query;
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -65,9 +68,15 @@ export default function ChatApp({
                     </div>
                 </div>
                 <main className="main-content h-100vh chat-app mt-0 flex w-full flex-col lg:mr-80-">
-                    <ChatHeader />
-                    <ChatBody messages={unread_messages} />
-                    <ChatInput channelDependency={channelDependency} />
+                    {channel_uuid ? (
+                        <>
+                            <ChatHeader />
+                            <ChatBody messages={unread_messages} />
+                            <ChatInput channelDependency={channelDependency} />
+                        </>
+                    ) : (
+                        <BodyTips />
+                    )}
                 </main>
             </div>
             <div id="x-teleport-target">
@@ -78,3 +87,9 @@ export default function ChatApp({
         </>
     );
 }
+
+const BodyTips = () => {
+    return (
+        <Box className="grow overflow-y-auto px-[calc(var(--margin-x)-.5rem)] py-5 transition-all duration-[.25s] scrollbar-sm" ></Box>
+    );
+};

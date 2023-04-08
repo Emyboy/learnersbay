@@ -7,6 +7,13 @@ import store from '../redux/store/store';
 import {useEffect} from 'react';
 import MasterPopup from '../components/Popups/MasterPopup';
 import {getAuthDependencies} from '../redux/actions/auth.actions';
+import {extendTheme} from '@chakra-ui/react';
+
+const theme = extendTheme({
+    colors: {
+        theme: '#5f5af6',
+    },
+});
 
 getAuthDependencies();
 export default function MyApp({Component, pageProps}) {
@@ -16,7 +23,7 @@ export default function MyApp({Component, pageProps}) {
         <>
             <Provider store={store}>
                 <CacheProvider>
-                    <ChakraProvider>
+                    <ChakraProvider theme={theme}>
                         <MasterPopup />
                         <Component {...pageProps} />
                     </ChakraProvider>

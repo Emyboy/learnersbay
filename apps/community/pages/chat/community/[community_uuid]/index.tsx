@@ -1,5 +1,5 @@
 import React from 'react';
-import ChatApp from '../../../apps/Chat/ChatApp';
+import ChatApp from '../../../../apps/Chat/ChatApp';
 import * as cookie from 'cookie';
 
 export default function index({communityDependency}: any) {

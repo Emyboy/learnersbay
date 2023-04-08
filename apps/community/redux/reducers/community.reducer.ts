@@ -3,10 +3,12 @@ import { CommunityData, CommunityMembership } from '../../interface/community.in
 export interface CommunityState {
     community_list: CommunityData[];
     community_memberships: CommunityMembership[];
+    selected_communities: CommunityData[];
 }
 
 const initialState: CommunityState = {
     community_list: [],
+    selected_communities: [],
     community_memberships: []
 };
 

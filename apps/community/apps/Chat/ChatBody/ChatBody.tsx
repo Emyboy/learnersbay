@@ -73,6 +73,13 @@ export default function ChatBody({messages}: Props) {
         });
     }, [connected]);
 
+    useEffect(() => {
+        var element = document.querySelector('#chat-end');
+        if (element) {
+            element?.scrollIntoView();
+        }
+    }, []);
+
     if (community_memberships.length === 0) {
         return null;
     } else

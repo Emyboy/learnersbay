@@ -1,9 +1,9 @@
 import {Box} from '@chakra-ui/react';
 import React, {useState} from 'react';
 
-type Props = {children: any};
+type Props = {children: any; title: string};
 
-export default function _Accordion({children}: Props) {
+export default function _Accordion({children,title}: Props) {
     const [show, setShow] = useState(true);
     return (
         <div>
@@ -12,8 +12,9 @@ export default function _Accordion({children}: Props) {
                 borderBottomWidth={'thin'}
                 borderColor="#2a3956"
                 className="mt-4 flex items-center justify-between px-4 pb-2"
+                cursor={'pointer'}
                 onClick={() => setShow(!show)}>
-                <span className="text-xs font-medium uppercase">Channels</span>
+                <span className="text-xs font-medium uppercase">{title}</span>
                 <div className="-mr-1.5 flex">
                     {!show ? (
                         <button className="btn h-6 w-6 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
