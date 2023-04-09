@@ -2,7 +2,7 @@ import React from 'react';
 import {CommunityDependencies} from '../../../interface';
 
 import ChatAppLeftHeader from './ChatAppLeftHeader';
-import ChatAppLeftList from './ChatAppLeftList';
+import ChatAppLeftList from './ChatAppLeft/ChatAppLeftList';
 import ChatAppLeftSearch from './ChatAppLeftSearch';
 
 type Props = {community_id?: any; communityDependency?: CommunityDependencies};

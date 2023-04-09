@@ -15,10 +15,10 @@ export default function OutGoingChat({message}: Props) {
                         {message.message_text}
                     </div>
                 </div> */}
-                <div className="ml-4 max-w-lg sm:ml-10">
+                <div className="ml-4 max-w-lg sm:ml-10" >
                     <div
                         className="rounded-2xl rounded-tr-none bg-info/10 p-3 text-slate-700 shadow-sm dark:bg-accent dark:text-white"
-                        style={{overflowWrap: `break-word`}}>
+                        style={{overflowWrap: `break-word`, wordWrap: 'break-word'}}>
                         <ChatWrapper>
                             <ReactMarkdown>
                                 {message?.message_text}

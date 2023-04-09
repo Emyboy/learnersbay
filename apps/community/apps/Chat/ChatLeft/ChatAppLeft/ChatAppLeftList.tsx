@@ -1,24 +1,36 @@
-import {Text} from '@chakra-ui/react';
+import {Text, Icon, Button, Box, Flex} from '@chakra-ui/react';
 import Link from 'next/link';
 import React, {useEffect, useState} from 'react';
-import {CommunityDependencies} from '../../../interface';
+import {CommunityDependencies} from '../../../../interface';
 // import EachConversation from './EachConversation/EachConversation';
 import dynamic from 'next/dynamic';
+import {RxPlus} from 'react-icons/rx';
 
 const EachConversation = dynamic(
-    () => import('./EachConversation/EachConversation')
+    () => import('../EachConversation/EachConversation'),
 );
-import _Accordion from '../../../atoms/Accordion/_Accordion';
-import {ConversationData} from '../../../interface/chat.interface';
+import _Accordion from '../../../../atoms/Accordion/_Accordion';
+import {ConversationData} from '../../../../interface/chat.interface';
+import CreateChannelPopup from '../../../../components/Popups/CreateChannelPopup';
+import {ChannelData} from '../../../../interface/community.interface';
 
 type Props = {
     communityDependency?: CommunityDependencies;
 };
 
 export default function ChatAppLeftList({communityDependency}: Props) {
-    const [list, setList] = useState<ConversationData[] | undefined>(
-        communityDependency?.conversations,
+    const [conversationList, setConversationList] = useState<
+        ConversationData[] | undefined
+    >(communityDependency?.conversations);
+    const [channelList, setChannelList] = useState<ChannelData[] | undefined>(
+        communityDependency?.channels,
     );
+    const [addChannel, setAddChannel] = useState(false);
+
+
+    if (!channelList) {
+        return null;
+    }
 
     return (
         <div className="is-scrollbar-hidden mt-3 flex grow flex-col overflow-y-auto">
@@ -28,20 +40,34 @@ export default function ChatAppLeftList({communityDependency}: Props) {
                 <EachShortcut />
             </ul>
             <_Accordion title="Channels">
-                {communityDependency?.channels?.map(channel => {
+                {channelList?.map(channel => {
                     return (
                         <Link
-                            href={`/chat/community/${communityDependency.community.uuid}/${channel.uuid}`}
+                            href={`/chat/community/${communityDependency?.community?.uuid}/${channel.uuid}`}
                             className="flex cursor-pointer items-center space-x-2.5 px-4 py-2.5 font-inter hover:bg-slate-150 dark:hover:bg-navy-600"
                             key={channel.uuid}>
-                            <Text fontWeight={'bold'}># {channel.slug}</Text>
+                            <Text fontWeight={'bold'}># {channel.name}</Text>
                         </Link>
                     );
                 })}
+                <CreateChannelPopup
+                    show={addChannel}
+                    onClose={() => setAddChannel(false)}
+                    onSubmit={(e: any) =>
+                        setChannelList([...channelList, e])
+                    }
+                />
+                <div
+                    onClick={() => setAddChannel(true)}
+                    className="flex cursor-pointer items-center space-x-2.5 px-4 py-2.5 font-inter hover:bg-slate-150 dark:hover:bg-navy-600">
+                    <Text fontWeight={'thin'}>
+                        <Icon as={RxPlus} /> Add Channel
+                    </Text>
+                </div>
             </_Accordion>
             <_Accordion title="Direct Messages">
-                {list &&
-                    list.map((conversation, index) => {
+                {conversationList &&
+                    conversationList.map((conversation, index) => {
                         return (
                             <EachConversation
                                 key={`conv-${index}`}

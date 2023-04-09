@@ -7,6 +7,16 @@ export const ChatWrapper = styled.div`
     vertical-align: initial;
     overflow-wrap: break-word;
 
+    code {
+        font-family: monospace !important;
+        background-color: #202b40;
+        padding: 6px 8px;
+        border-radius: 5px;
+        min-width: 700px;
+        word-wrap: break-word;
+        box-decoration-break: clone;
+    }
+
     h1 {
         font-size: 1.875rem;
         line-height: 2.25rem;

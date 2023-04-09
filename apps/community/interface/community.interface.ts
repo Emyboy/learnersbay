@@ -15,7 +15,7 @@ export interface CommunityData {
 export interface ChannelData {
     id: number;
     name: string;
-    slug: string;
+    description: string;
     uuid: string;
 }
 

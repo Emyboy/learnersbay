@@ -17,6 +17,10 @@ export default function EachConversation({ data }: Props) {
 	const membership = getCommunityMembership(String(community_uuid));
 	const otherPerson:CommunityMembership = data?.participants?.filter(x => x?.id === membership?.id)[0];
 
+    if(!otherPerson){
+        return null
+    }
+
 	return (
         <Link
             href={`/chat/community/${community_uuid}/${data.uuid}`}
