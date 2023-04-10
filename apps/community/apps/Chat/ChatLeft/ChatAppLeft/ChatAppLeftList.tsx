@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {CommunityDependencies} from '../../../../interface';
 // import EachConversation from './EachConversation/EachConversation';
 import dynamic from 'next/dynamic';
-import {RxPlus} from 'react-icons/rx';
+import {RxPlus, RxFile} from 'react-icons/rx';
 
 const EachConversation = dynamic(
     () => import('../EachConversation/EachConversation'),
@@ -28,20 +28,31 @@ export default function ChatAppLeftList({communityDependency}: Props) {
         ConversationData[] | undefined
     >(communityDependency?.conversations);
     const [channelList, setChannelList] = useState<ChannelData[] | undefined>(
-        communityDependency?.channels,
+        [],
     );
     const [addChannel, setAddChannel] = useState(false);
     const router = useRouter();
     const {channel_uuid, community_uuid} = router.query;
+
+    useEffect(() => {
+        setChannelList(communityDependency?.channels);
+    }, [communityDependency]);
 
     if (!channelList) {
         return null;
     }
 
     return (
-        <div className="is-scrollbar-hidden mt-3 flex grow flex-col overflow-y-auto">
-            <ul className="space-y-1.5 px-2 font-inter text-xs+ font-medium">
-                <_Accordion title="Pages" defaultOpen={false}>
+        <Box
+            pb="100px"
+            className="is-scrollbar-hidden mt-3 flex grow flex-col overflow-y-auto">
+            <_Accordion title="Pages" defaultOpen={channelList.length < 10}>
+                <ul className="space-y-1.5 px-2 font-inter text-xs+ font-medium">
+                    <EachShortcut
+                        name="Files"
+                        icon={RxFile}
+                        url={`/chat/community/${community_uuid}`}
+                    />
                     <EachShortcut
                         name="Logs"
                         icon={FiDatabase}
@@ -62,8 +73,8 @@ export default function ChatAppLeftList({communityDependency}: Props) {
                         icon={FiUsers}
                         url={`/chat/community/${community_uuid}`}
                     />
-                </_Accordion>
-            </ul>
+                </ul>
+            </_Accordion>
             <_Accordion title="Channels">
                 {channelList?.map(channel => {
                     return (
@@ -107,6 +118,6 @@ export default function ChatAppLeftList({communityDependency}: Props) {
                         );
                     })}
             </_Accordion>
-        </div>
+        </Box>
     );
 }

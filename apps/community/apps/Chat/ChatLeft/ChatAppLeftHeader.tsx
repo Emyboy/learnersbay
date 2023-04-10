@@ -1,8 +1,15 @@
+import { useRouter } from 'next/router';
 import React from 'react'
+import { getCommunityByUUID } from '../../../utils/Community.utils';
 
 type Props = {}
 
 export default function ChatAppLeftHeader({}: Props) {
+	const router = useRouter()
+	const { community_uuid } = router.query;
+
+	const activeCommunity = getCommunityByUUID(String(community_uuid));
+
   return (
 		<div className="flex items-center">
 			<div className="avatar mr-3 hidden h-9 w-9 lg:flex">
@@ -24,7 +31,7 @@ export default function ChatAppLeftHeader({}: Props) {
 				</div>
 			</div>
 			<p className="text-lg font-medium tracking-wider text-slate-800 line-clamp-1 dark:text-navy-100">
-				Chat
+				{activeCommunity?.name}
 			</p>
 		</div>
 	)

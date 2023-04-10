@@ -4,7 +4,8 @@ import React, {useState} from 'react';
 type Props = {children: any; title: string; defaultOpen?: boolean;};
 
 export default function _Accordion({children,title, defaultOpen}: Props) {
-    const [show, setShow] = useState<boolean>(defaultOpen || true);
+    const [show, setShow] = useState(defaultOpen === undefined ? true : defaultOpen);
+
     return (
         <div>
             <Box

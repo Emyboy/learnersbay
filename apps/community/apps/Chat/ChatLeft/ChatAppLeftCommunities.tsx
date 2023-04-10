@@ -107,8 +107,7 @@ const EachCommunity = ({
                 }
                 style={{
                     backgroundImage: `url(${
-                        Globals.API_URL +
-                        data.community_logo.url
+                       data.thumbnail
                     })`,
                 }}></Link>
         </Tooltip>
