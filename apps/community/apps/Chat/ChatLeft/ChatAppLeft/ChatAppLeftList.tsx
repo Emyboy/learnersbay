@@ -13,6 +13,8 @@ import _Accordion from '../../../../atoms/Accordion/_Accordion';
 import {ConversationData} from '../../../../interface/chat.interface';
 import CreateChannelPopup from '../../../../components/Popups/CreateChannelPopup';
 import {ChannelData} from '../../../../interface/community.interface';
+import {useRouter} from 'next/router';
+import classNames from 'classnames';
 
 type Props = {
     communityDependency?: CommunityDependencies;
@@ -26,7 +28,8 @@ export default function ChatAppLeftList({communityDependency}: Props) {
         communityDependency?.channels,
     );
     const [addChannel, setAddChannel] = useState(false);
-
+    const router = useRouter();
+    const {channel_uuid} = router.query;
 
     if (!channelList) {
         return null;
@@ -44,7 +47,13 @@ export default function ChatAppLeftList({communityDependency}: Props) {
                     return (
                         <Link
                             href={`/chat/community/${communityDependency?.community?.uuid}/${channel.uuid}`}
-                            className="flex cursor-pointer items-center space-x-2.5 px-4 py-2.5 font-inter hover:bg-slate-150 dark:hover:bg-navy-600"
+                            className={classNames(
+                                'flex cursor-pointer items-center space-x-2.5 px-4 py-2.5 font-inter hover:bg-slate-150 dark:hover:bg-navy-600 ',
+                                {
+                                    'dark:bg-navy-500':
+                                        channel.uuid === channel_uuid,
+                                },
+                            )}
                             key={channel.uuid}>
                             <Text fontWeight={'bold'}># {channel.name}</Text>
                         </Link>
@@ -53,9 +62,7 @@ export default function ChatAppLeftList({communityDependency}: Props) {
                 <CreateChannelPopup
                     show={addChannel}
                     onClose={() => setAddChannel(false)}
-                    onSubmit={(e: any) =>
-                        setChannelList([...channelList, e])
-                    }
+                    onSubmit={(e: any) => setChannelList([...channelList, e])}
                 />
                 <div
                     onClick={() => setAddChannel(true)}

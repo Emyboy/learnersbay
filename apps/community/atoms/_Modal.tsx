@@ -18,6 +18,12 @@ type Props = {
 
 export default function _Modal(props: Props & ModalProps) {
     const {children, heading, subHeading} = props;
+
+
+    if(!props.isOpen){
+        return null
+    }
+
     return (
         <Modal
             size="lg"

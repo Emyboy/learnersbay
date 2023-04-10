@@ -17,5 +17,6 @@ export const getCommunityByUUID = (community_uuid: string) => {
 };
 
 export const stringToSlug = (string: string): string => {
-    return string.replace(/\s/g, '-');
+    let theStr =  string.replace(/\s/g, '-').replaceAll(/--/g, '-').toLowerCase();
+    return theStr;
 };
