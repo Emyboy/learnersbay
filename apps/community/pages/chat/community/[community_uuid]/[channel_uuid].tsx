@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import ChatApp from '../../../../apps/Chat/ChatApp';
 import * as cookie from 'cookie';
 import {useRouter} from 'next/router';
+import Globals from '../../../../Globals';
 
 export default function ChannelUUID({
     communityDependency,
@@ -35,7 +36,7 @@ export async function getServerSideProps(ctx: any) {
         const {community_uuid, channel_uuid} = ctx.params;
         const parsedCookies = cookie.parse(ctx.req.headers.cookie);
         const communityDependencyRequests = await fetch(
-            process.env.NEXT_PUBLIC_API_URL +
+            Globals.API_URL +
                 `/community/dependencies/${community_uuid}`,
             {
                 headers: {
@@ -48,7 +49,7 @@ export async function getServerSideProps(ctx: any) {
         const communityDependency = await communityDependencyRequests.json();
 
         const channelDependencyRequest = await fetch(
-            process.env.NEXT_PUBLIC_API_URL +
+            Globals.API_URL +
                 `/channel/dependencies/${channel_uuid}`,
             {
                 headers: {

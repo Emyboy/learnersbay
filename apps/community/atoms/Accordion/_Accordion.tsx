@@ -1,10 +1,10 @@
 import {Box} from '@chakra-ui/react';
 import React, {useState} from 'react';
 
-type Props = {children: any; title: string};
+type Props = {children: any; title: string; defaultOpen?: boolean;};
 
-export default function _Accordion({children,title}: Props) {
-    const [show, setShow] = useState(true);
+export default function _Accordion({children,title, defaultOpen}: Props) {
+    const [show, setShow] = useState<boolean>(defaultOpen || true);
     return (
         <div>
             <Box

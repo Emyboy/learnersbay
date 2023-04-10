@@ -8,6 +8,7 @@ import {AppStore} from '../../../interface';
 import {CommunityData} from '../../../interface/community.interface';
 import {RxPlus} from 'react-icons/rx';
 import classNames from 'classnames';
+import Globals from '../../../Globals';
 
 type Props = {};
 
@@ -106,7 +107,7 @@ const EachCommunity = ({
                 }
                 style={{
                     backgroundImage: `url(${
-                        process.env.NEXT_PUBLIC_BACKEND_URL +
+                        Globals.API_URL +
                         data.community_logo.url
                     })`,
                 }}></Link>

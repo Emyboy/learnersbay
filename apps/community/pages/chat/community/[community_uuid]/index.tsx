@@ -1,6 +1,7 @@
 import React from 'react';
 import ChatApp from '../../../../apps/Chat/ChatApp';
 import * as cookie from 'cookie';
+import Globals from '../../../../Globals';
 
 export default function index({communityDependency}: any) {
     return (
@@ -15,7 +16,7 @@ export async function getServerSideProps(ctx: any) {
         const {community_uuid} = ctx.params;
         const parsedCookies = cookie.parse(ctx.req.headers.cookie);
         const communityDependencyRequests = await fetch(
-            process.env.NEXT_PUBLIC_API_URL +
+            Globals.API_URL +
                 `/community/dependencies/${community_uuid}`,
             {
                 headers: {

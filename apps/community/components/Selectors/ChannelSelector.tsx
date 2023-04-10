@@ -33,8 +33,7 @@ export default function ChannelSelector({
                             Enter your favorite community
                         </h2>
                         <p className="text-slate-400 dark:text-navy-300">
-                            Select the communities you'd like to enter or create
-                            a new one.
+                            {"Select the communities you\'d like to enter or create a new one."}
                         </p>
                     </div>
                 </Box>

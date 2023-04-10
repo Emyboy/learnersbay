@@ -78,10 +78,11 @@ export default function CreateChannelPopup({onClose, show, onSubmit}: Props) {
                     <label className="block pb-4">
                         <span>
                             Channel name{' '}
-                            <Text as="span" fontWeight={'thin'}>{`(80)`}</Text>
+                            <Text as="span" fontWeight={'thin'}>{`(${40 - channelName.length})`}</Text>
                         </span>
                         <span className="relative mt-1.5 flex">
                             <input
+                                maxLength={40}
                                 value={stringToSlug(channelName)}
                                 className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                                 placeholder="Ex. Marketing"

@@ -17,7 +17,7 @@ import {setCommunityState} from '../redux/actions/community.action';
 import {useRouter} from 'next/router';
 import {logout} from '../redux/actions/auth.actions';
 
-export default function index({login}: any) {
+export default function Index({login}: any) {
     const {community_list} = useSelector((state: AppStore) => state.community);
     const [selectedCommunity, setSelectedCommunity] = useState<CommunityData[]>(
         [],
