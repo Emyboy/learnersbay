@@ -1,22 +1,41 @@
+import { Box, VStack } from '@chakra-ui/react';
+import moment from 'moment';
 import React from 'react';
 import {MessageData} from '../../../../interface/message.interface';
+import ReactMarkdown from 'react-markdown';
+import { ChatWrapper } from './ChatWrapper';
 
 type Props = {
-    message: MessageData;
+    messages: MessageData[];
 };
 
-export default function EachOutgoingChat({message}: Props) {
+export default function EachOutgoingChat({messages}: Props) {
     return (
-        <div className="flex items-start justify-end space-x-2.5 sm:space-x-5">
+        <Box mb="10" className="flex items-start justify-end space-x-2.5 sm:space-x-5">
             <div className="flex flex-col items-end space-y-1">
-                <div className="ml-4 max-w-lg sm:ml-10">
-                    <div className="rounded-2xl rounded-tr-none bg-info/10 p-3 text-slate-700 shadow-sm dark:bg-accent dark:text-white">
-                        {message.message_text}
-                    </div>
-                </div>
+                <VStack className="ml-4 max-w-lg sm:ml-10">
+                    {messages.map(msg => {
+                        return (
+                            <Box
+                                width="fit-content"
+                                borderWidth={'1px'}
+                                borderColor='theme'
+                                alignSelf={'flex-end'}
+                                m="0"
+                                key={msg.createdAt}
+                                className="rounded-2xl rounded-tr-none bg-info/10 p-3 text-slate-700 shadow-sm dark:bg-navy-700 dark:text-white">
+                                <ChatWrapper>
+                                    <ReactMarkdown>
+                                        {msg.message_text}
+                                    </ReactMarkdown>
+                                </ChatWrapper>
+                            </Box>
+                        );
+                    })}
+                </VStack>
                 <div className="ml-4 max-w-lg sm:ml-10">
                     <p className="mb-1 ml-auto text-left text-xs text-slate-400 dark:text-navy-300">
-                        08:16
+                        {moment(messages[0].createdAt).fromNow()}
                     </p>
                 </div>
                 <br />
@@ -28,6 +47,6 @@ export default function EachOutgoingChat({message}: Props) {
                     alt="avatar"
                 />
             </div>
-        </div>
+        </Box>
     );
 }

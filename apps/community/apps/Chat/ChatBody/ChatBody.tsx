@@ -97,9 +97,11 @@ export default function ChatBody({messages}: Props) {
         // console.log(message_list);
         // console.log(output);
         setFormattedMessageList(output);
+        console.log('LIST FORMATTED');
     };
 
     useEffect(() => {
+        console.log('MESSAGE UPDATED');
         formatMessage();
     }, [message_list]);
 
@@ -110,9 +112,7 @@ export default function ChatBody({messages}: Props) {
         (formattedMessageList && Object.keys(formattedMessageList).length === 0)
     ) {
         return null;
-    }
-    else
-    // console.log('FORMATED --', formattedMessageList);
+    } else
         return (
             <div
                 className="grow overflow-y-auto px-[calc(var(--margin-x)-.5rem)] py-5 transition-all duration-[.25s] scrollbar-sm"
