@@ -9,6 +9,7 @@ import {API} from '../../../utils/API.utils';
 import {MessageData} from '../../../interface/message.interface';
 import moment from 'moment';
 import ChatDayContainer from './Containers/ChatDayContainer';
+import { Box } from '@chakra-ui/react';
 
 type Props = {
     messages?: any[];
@@ -84,37 +85,39 @@ export default function ChatBody({messages}: Props) {
         setReady(true);
     }, []);
 
-    const formatMessage = () => {
-        let output: any = {};
-        message_list.forEach((message: MessageData) => {
-            const dayCategory = message.createdAt.split('T')[0];
-            output = {...output, [dayCategory]: []};
-        });
-        message_list.forEach((message: MessageData) => {
-            const dayCategory = message.createdAt.split('T')[0];
-            output[dayCategory].push(message);
-        });
-        // console.log(message_list);
-        // console.log(output);
-        setFormattedMessageList(output);
-        console.log('LIST FORMATTED');
+    const formatMessage = (_message_list:any[]) => {
+            let output: any = {};
+            _message_list.forEach((message: MessageData) => {
+                const dayCategory = message.createdAt.split('T')[0];
+                output = {...output, [dayCategory]: []};
+            });
+            _message_list.forEach((message: MessageData) => {
+                const dayCategory = message.createdAt.split('T')[0];
+                output[dayCategory].push(message);
+            });
+            // console.log(message_list);
+            // console.log(output);
+            setFormattedMessageList(output);
+            // console.log('LIST FORMATTED', output);
+            return output;
     };
 
     useEffect(() => {
-        console.log('MESSAGE UPDATED');
-        formatMessage();
+        formatMessage(message_list);
     }, [message_list]);
 
     if (
         community_memberships.length === 0 ||
-        !ready ||
-        !formattedMessageList ||
-        (formattedMessageList && Object.keys(formattedMessageList).length === 0)
+        !ready 
+        // ||
+        // !formattedMessageList ||
+        // (formattedMessageList && Object.keys(formattedMessageList).length === 0)
     ) {
         return null;
     } else
         return (
-            <div
+            <Box
+                flex={1}
                 className="grow overflow-y-auto px-[calc(var(--margin-x)-.5rem)] py-5 transition-all duration-[.25s] scrollbar-sm"
                 style={{overflowX: 'hidden'}}>
                 {formattedMessageList &&
@@ -132,6 +135,6 @@ export default function ChatBody({messages}: Props) {
                     return <EachChatContainer message={message} key={message.createdAt} />;
                 })} */}
                 <div id="chat-end" />
-            </div>
+            </Box>
         );
 }

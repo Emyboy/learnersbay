@@ -1,4 +1,4 @@
-import {Box} from '@chakra-ui/react';
+import {Box, VStack} from '@chakra-ui/react';
 import moment from 'moment';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -21,11 +21,13 @@ export default function EachIncomingChat({messages}: Props) {
             </div>
 
             <div className="flex flex-col items-start space-y-3.5">
-                <div className="mr-4 max-w-lg sm:mr-10">
+                <VStack className="mr-4 max-w-lg sm:mr-10" alignItems={'flex-start'}>
                     {messages.map(msg => {
                         return (
                             <Box
-                                mb="2"
+                                width="fit-content"
+                                alignSelf={'flex-start'}
+                                m="0"
                                 key={msg.createdAt}
                                 className="rounded-2xl rounded-tl-none bg-white p-3 text-slate-700 shadow-sm dark:bg-navy-700 dark:text-navy-100">
                                 <ChatWrapper>
@@ -39,7 +41,7 @@ export default function EachIncomingChat({messages}: Props) {
                     <p className="mt-1 ml-auto text-right text-xs text-slate-400 dark:text-navy-300">
                         {moment(messages[0].createdAt).fromNow()}
                     </p>
-                </div>
+                </VStack>
             </div>
         </Box>
     );

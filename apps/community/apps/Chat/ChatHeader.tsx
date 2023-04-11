@@ -7,6 +7,12 @@ type Props = {};
 
 export default function ChatHeader({}: Props) {
     const {user} = useSelector((state: AppStore) => state.auth);
+    const {active_channel} = useSelector((state: AppStore) => state.community);
+
+    if (!active_channel) {
+        return null;
+    }
+
     return (
         <div className="chat-header relative z-10 flex h-[61px] w-full shrink-0 items-center justify-between border-b border-slate-150 bg-white px-[calc(var(--margin-x)-.5rem)] shadow-sm transition-[padding,width] duration-[.25s] dark:border-navy-700 dark:bg-navy-800">
             <div className="flex items-center space-x-5">
@@ -29,7 +35,7 @@ export default function ChatHeader({}: Props) {
                         <p
                             className="font-medium text-slate-700 line-clamp-1 dark:text-navy-100"
                             x-text="activeChat.name">
-                            {user?.first_name}
+                            # {active_channel.name}
                         </p>
                         <p className="mt-0.5 text-xs">Last seen recently</p>
                     </div>

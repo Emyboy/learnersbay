@@ -18,6 +18,7 @@ import classNames from 'classnames';
 import EachShortcut from './EachShortcut';
 import {FiBell, FiUsers, FiDatabase} from 'react-icons/fi';
 import {TbMoneybag} from 'react-icons/tb';
+import {setCommunityState} from '../../../../redux/actions/community.action';
 
 type Props = {
     communityDependency?: CommunityDependencies;
@@ -37,6 +38,24 @@ export default function ChatAppLeftList({communityDependency}: Props) {
     useEffect(() => {
         setChannelList(communityDependency?.channels);
     }, [communityDependency]);
+
+    useEffect(() => {
+        // clean up
+        if (channel_uuid) {
+            channelList?.forEach((channel, index) => {
+                if (channel.uuid === channel_uuid) {
+                    setCommunityState({
+                        active_channel: channelList[index],
+                    });
+                }
+            });
+        }
+        return () => {
+            setCommunityState({
+                active_channel: null,
+            });
+        };
+    }, [channel_uuid, channelList]);
 
     if (!channelList) {
         return null;
@@ -79,6 +98,11 @@ export default function ChatAppLeftList({communityDependency}: Props) {
                 {channelList?.map(channel => {
                     return (
                         <Link
+                            onClick={() =>
+                                setCommunityState({
+                                    active_channel: channel,
+                                })
+                            }
                             href={`/chat/community/${communityDependency?.community?.uuid}/${channel.uuid}`}
                             className={classNames(
                                 'flex cursor-pointer items-center space-x-2.5 px-4 py-2.5 font-inter hover:bg-slate-150 dark:hover:bg-navy-600 ',

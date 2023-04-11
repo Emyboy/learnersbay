@@ -13,17 +13,17 @@ export default function ChatDayContainer({dayName, dayMessages}: Props) {
 
     const [formattedMessageList, setFormattedMessageList] = useState(null);
 
-    const formatMessage = () => {
+    const formatMessage = (_dayMessages:any[]) => {
         let output: any = {};
-        dayMessages.forEach(msg => {
+        _dayMessages.forEach(msg => {
             let timeSplit = msg.createdAt.split('T')[1].split(':');
             let timeCategory = timeSplit[0] + ':' + timeSplit[1];
             output = {...output, [timeCategory]: []};
         });
-        dayMessages.forEach(msg => {
+        _dayMessages.forEach(msg => {
             let timeSplit = msg.createdAt.split('T')[1].split(':');
             let timeCategory = timeSplit[0] + ':' + timeSplit[1];
-            if(msg.createdAt.includes(timeCategory)){
+            if (msg.createdAt.includes(timeCategory)) {
                 output[timeCategory].push(msg);
             }
         });
@@ -33,8 +33,8 @@ export default function ChatDayContainer({dayName, dayMessages}: Props) {
     };
 
     useEffect(() => {
-        formatMessage();
-    }, []);
+        formatMessage(dayMessages);
+    }, [dayMessages]);
     // console.log(formattedMessageList);
 
     return (

@@ -9,6 +9,7 @@ type Props = {
 
 export default function ChatTimeContainer({time, timeMessage}: Props) {
     // console.log({time, timeMessage});
+
     return (
         <>
             <ChatUserContainer messages={timeMessage} />

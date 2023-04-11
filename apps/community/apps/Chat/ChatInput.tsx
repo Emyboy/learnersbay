@@ -23,6 +23,7 @@ export default function ChatInput({channelDependency}: Props) {
     const communityMembership = community_memberships.filter(
         x => x.community?.id,
     )[0];
+    const [inFocus, setInFocus] = useState(false);
 
     useEffect(() => {
         if (message_text.length > 289) {
@@ -32,14 +33,11 @@ export default function ChatInput({channelDependency}: Props) {
         }
     }, [message_text]);
 
-    const handleSubmit = async () => {
+    const sendMessage = async (data: any) => {
+        if (!data.message_text || !data.from || !data.channel) {
+            return null;
+        }
         try {
-            const data = {
-                message_text,
-                from: communityMembership.id,
-                channel: channelDependency.channel.id,
-                community: channelDependency.channel.community?.id,
-            };
             await API(`/messages`, true, {
                 data: {
                     data,
@@ -50,12 +48,36 @@ export default function ChatInput({channelDependency}: Props) {
             if (element) {
                 setTimeout(() => {
                     element?.scrollIntoView({behavior: 'smooth'});
-                }, 1000);
+                }, 500);
             }
         } catch (error) {
+            // TODO - handle error
             console.log(error);
         }
     };
+
+    const handleSubmit = async () => {
+        setMessageText(state => {
+            const data = {
+                message_text: state,
+                from: communityMembership.id,
+                channel: channelDependency.channel.id,
+                community: channelDependency.channel.community?.id,
+            };
+            console.log('SENDING --', data);
+            sendMessage(data);
+            return '';
+        });
+    };
+
+    useEffect(() => {
+        const chatInput = document.querySelector('#chat-input');
+        chatInput?.addEventListener('keydown', (event: any) => {
+            if (event?.ctrlKey && event?.key === 'Enter') {
+                handleSubmit();
+            }
+        });
+    }, []);
 
     return (
         <Box
@@ -78,13 +100,15 @@ export default function ChatInput({channelDependency}: Props) {
                 </button>
 
                 <textarea
+                    id="chat-input"
                     className="form-input w-full is-scrollbar-hidden bg-transparent placeholder:text-slate-400/70 p-2"
                     placeholder="Start typing..."
+                    value={message_text}
+                    autoFocus
                     // rows={1}
                     style={{
                         resize: 'none',
                         // height: '100%',
-                        backgroundColor: '#192132',
                     }}
                     onChange={e => setMessageText(e.target.value)}
                 />

@@ -17,17 +17,17 @@ export default function ChatUserContainer({messages}: Props) {
     const [formattedMessageList, setFormattedMessageList] = useState(null);
 
     // console.log(messages);
-    const formatMessage = () => {
+    const formatMessage = (_messages: any[]) => {
         let output: any = {};
 
-        messages.forEach(msg => {
+        _messages.forEach(msg => {
             let timeSplit = msg.createdAt.split('T')[1].split(':');
             let timeCategory = timeSplit[0] + ':' + timeSplit[1];
             const userKey = timeCategory + '-' + msg.from.id;
             output = {...output, [userKey]: []};
         });
 
-        messages.forEach(msg => {
+        _messages.forEach(msg => {
             let timeSplit = msg.createdAt.split('T')[1].split(':');
             let timeCategory = timeSplit[0] + ':' + timeSplit[1];
             const userKey = timeCategory + '-' + msg.from.id;
@@ -40,8 +40,8 @@ export default function ChatUserContainer({messages}: Props) {
     };
 
     useEffect(() => {
-        formatMessage();
-    }, []);
+        formatMessage(messages);
+    }, [messages]);
 
     return (
         <>

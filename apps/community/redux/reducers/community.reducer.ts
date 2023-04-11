@@ -1,15 +1,17 @@
-import { CommunityData, CommunityMembership } from '../../interface/community.interface';
+import { ChannelData, CommunityData, CommunityMembership } from '../../interface/community.interface';
 
 export interface CommunityState {
     community_list: CommunityData[];
     community_memberships: CommunityMembership[];
     selected_communities: CommunityData[];
+    active_channel: ChannelData | null;
 }
 
 const initialState: CommunityState = {
     community_list: [],
     selected_communities: [],
-    community_memberships: []
+    community_memberships: [],
+    active_channel: null
 };
 
 export default (

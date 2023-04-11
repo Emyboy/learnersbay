@@ -18,12 +18,10 @@ export default function EachOutgoingChat({messages}: Props) {
                         return (
                             <Box
                                 width="fit-content"
-                                borderWidth={'1px'}
-                                borderColor='theme'
                                 alignSelf={'flex-end'}
                                 m="0"
                                 key={msg.createdAt}
-                                className="rounded-2xl rounded-tr-none bg-info/10 p-3 text-slate-700 shadow-sm dark:bg-navy-700 dark:text-white">
+                                className="rounded-2xl rounded-tr-none p-3 text-slate-700 shadow-sm  dark:text-white dark:bg-navy-500 bg-slate-150">
                                 <ChatWrapper>
                                     <ReactMarkdown>
                                         {msg.message_text}

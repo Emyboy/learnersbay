@@ -37,6 +37,7 @@ export default function CreateChannelPopup({onClose, show, onSubmit}: Props) {
                 community: theCommunity.id,
                 description,
                 creator: theMembership.id,
+                publishedAt: new Date(),
             };
             const res = await API(`/channels`, true, {
                 method: 'POST',
