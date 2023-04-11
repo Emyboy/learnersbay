@@ -6,8 +6,9 @@ import {setChatState} from '../../../redux/actions/chat.action';
 import {socket} from '../../../utils/LiveConnect';
 import {useRouter} from 'next/router';
 import {API} from '../../../utils/API.utils';
-import EachChatContainer from './EachChat/EachChatContainer';
-import ChatDayCategory from './ChatDayCategory';
+import {MessageData} from '../../../interface/message.interface';
+import moment from 'moment';
+import ChatDayContainer from './Containers/ChatDayContainer';
 
 type Props = {
     messages?: any[];
@@ -29,7 +30,9 @@ export default function ChatBody({messages}: Props) {
         (state: AppStore) => state.community,
     );
     const {connected} = useSelector((state: AppStore) => state.view);
-    const [message_list, setMessageList] = useState<any[]>([]);
+    const [message_list, setMessageList] = useState<MessageData[]>([]);
+    const [formattedMessageList, setFormattedMessageList] = useState(null);
+    const [ready, setReady] = useState(false);
     const router = useRouter();
     const {channel_uuid} = router.query;
 
@@ -78,21 +81,56 @@ export default function ChatBody({messages}: Props) {
         if (element) {
             element?.scrollIntoView();
         }
+        setReady(true);
     }, []);
 
-    if (community_memberships.length === 0) {
+    const formatMessage = () => {
+        let output: any = {};
+        message_list.forEach((message: MessageData) => {
+            const dayCategory = message.createdAt.split('T')[0];
+            output = {...output, [dayCategory]: []};
+        });
+        message_list.forEach((message: MessageData) => {
+            const dayCategory = message.createdAt.split('T')[0];
+            output[dayCategory].push(message);
+        });
+        // console.log(message_list);
+        // console.log(output);
+        setFormattedMessageList(output);
+    };
+
+    useEffect(() => {
+        formatMessage();
+    }, [message_list]);
+
+    if (
+        community_memberships.length === 0 ||
+        !ready ||
+        !formattedMessageList ||
+        (formattedMessageList && Object.keys(formattedMessageList).length === 0)
+    ) {
         return null;
-    } else
+    }
+    else
+    // console.log('FORMATED --', formattedMessageList);
         return (
             <div
                 className="grow overflow-y-auto px-[calc(var(--margin-x)-.5rem)] py-5 transition-all duration-[.25s] scrollbar-sm"
                 style={{overflowX: 'hidden'}}>
-                <ChatDayCategory />
+                {formattedMessageList &&
+                    Object.keys(formattedMessageList).map(val => {
+                        var dt = moment(val, 'YYYY-MM-DD HH:mm:ss');
+                        return (
+                            <ChatDayContainer
+                                dayName={dt.format('dddd')}
+                                dayMessages={formattedMessageList[val]}
+                            />
+                        );
+                    })}
+                {/* <ChatDayCategory />
                 {message_list?.map(message => {
-                    // todo - add key
-                    return <EachChatContainer message={message} />;
-                })}
-                <ChatDayCategory />
+                    return <EachChatContainer message={message} key={message.createdAt} />;
+                })} */}
                 <div id="chat-end" />
             </div>
         );

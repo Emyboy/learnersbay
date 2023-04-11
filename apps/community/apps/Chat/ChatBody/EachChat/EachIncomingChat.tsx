@@ -1,12 +1,11 @@
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
-import { ChatWrapper } from './ChatWrapper';
+import { MessageData } from '../../../../interface/message.interface';
 
 type Props = {
-    message: any;
+    message: MessageData
 };
 
-export default function IncomingChat({message}: Props) {
+export default function EachIncomingChat({message}: Props) {
     return (
         <div className="flex items-start space-x-2.5 sm:space-x-5">
             <div className="avatar">
@@ -20,11 +19,7 @@ export default function IncomingChat({message}: Props) {
             <div className="flex flex-col items-start space-y-3.5">
                 <div className="mr-4 max-w-lg sm:mr-10">
                     <div className="rounded-2xl rounded-tl-none bg-white p-3 text-slate-700 shadow-sm dark:bg-navy-700 dark:text-navy-100">
-                        <ChatWrapper>
-                            <ReactMarkdown>
-                                {message?.message_text}
-                            </ReactMarkdown>
-                        </ChatWrapper>
+                        {message.message_text}
                     </div>
                     <p className="mt-1 ml-auto text-right text-xs text-slate-400 dark:text-navy-300">
                         08:16

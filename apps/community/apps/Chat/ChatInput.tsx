@@ -57,10 +57,6 @@ export default function ChatInput({channelDependency}: Props) {
         }
     };
 
-    useEffect(() => {
-        console.log('called')
-    }, []);
-
     return (
         <Box
             className={`chat-footer relative flex  w-full shrink-0 items-center justify-between border-t border-slate-150 bg-white px-[calc(var(--margin-x)-.25rem)] transition-[padding,width] duration-[.25s] dark:border-navy-600 dark:bg-navy-800`}

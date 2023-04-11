@@ -36,6 +36,7 @@ export default function ChatApp({
     }, []);
 
     if (!connected || !show) {
+        // todo - improve this
         return (
             <Center
                 display={'flex'}

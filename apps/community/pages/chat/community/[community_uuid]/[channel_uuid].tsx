@@ -8,12 +8,7 @@ export default function ChannelUUID({
     communityDependency,
     channelDependency,
 }: any) {
-    const [messages, setMessages] = useState([]);
     const router = useRouter();
-
-    useEffect(() => {
-        setMessages(channelDependency.messages);
-    }, [channelDependency]);
 
     if (!channelDependency || !channelDependency) {
         router.push('/');
@@ -24,7 +19,7 @@ export default function ChannelUUID({
         <>
             <ChatApp
                 communityDependency={communityDependency}
-                unread_messages={messages}
+                unread_messages={channelDependency.messages}
                 channelDependency={channelDependency}
             />
         </>
