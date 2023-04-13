@@ -43,6 +43,11 @@ export default function ChatUserContainer({messages}: Props) {
         formatMessage(messages);
     }, [messages]);
 
+    // console.log({
+    //     userKey: formattedMessageList,
+    //     activeMembership,
+    // });
+
     return (
         <>
             {formattedMessageList &&

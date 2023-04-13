@@ -1,14 +1,15 @@
 import { ChatData } from '../../interface/chat.interface'
+import { MessageData, PendingMessageData } from '../../interface/message.interface';
 
 export interface ChatState {
-	// chat_list: ChatData[],
-	incoming_message_id: number | null
+    // chat_list: ChatData[],
+    channel_messages: MessageData[] & PendingMessageData[];
 }
 
 const initialState: ChatState = {
-	// chat_list: [],
-	incoming_message_id: null
-}
+    // chat_list: [],
+    channel_messages: [],
+};
 
 export default (
 	state = initialState,

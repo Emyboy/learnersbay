@@ -1,8 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {API} from '../../utils/API.utils';
 import {useSelector} from 'react-redux';
 import {AppStore} from '../../interface';
-import {Box} from '@chakra-ui/react';
+import {Box, useToast} from '@chakra-ui/react';
+import {getCommunityMembership} from '../../utils/Community.utils';
+import {useRouter} from 'next/router';
+import {PendingMessageData} from '../../interface/message.interface';
+
+import {sendMessage} from '../../redux/actions/chat.action';
 
 type Props = {
     channelDependency: any;
@@ -17,58 +22,41 @@ type Props = {
 export default function ChatInput({channelDependency}: Props) {
     const [message_text, setMessageText] = useState('');
     const [inputHeight, setInputHeight] = useState('70px');
-    const {community_memberships} = useSelector(
-        (state: AppStore) => state.community,
-    );
-    const communityMembership = community_memberships.filter(
-        x => x.community?.id,
-    )[0];
+    const router = useRouter();
+    const {community_uuid, channel_uuid} = router.query;
+    const {channel_messages} = useSelector((state: AppStore) => state.chat);
+    const communityMembership = getCommunityMembership(`${community_uuid}`);
+    // console.log('INPUT MEMBERSHIP --', communityMembership);
     const [inFocus, setInFocus] = useState(false);
+    const toast = useToast();
 
     useEffect(() => {
-        if (message_text.length > 289) {
+        if (message_text && message_text.length > 289) {
             setInputHeight('200px');
         } else {
             setInputHeight('70px');
         }
     }, [message_text]);
 
-    const sendMessage = async (data: any) => {
-        if (!data.message_text || !data.from || !data.channel) {
-            return null;
-        }
-        try {
-            await API(`/messages`, true, {
-                data: {
-                    data,
-                },
-                method: 'POST',
-            });
-            var element = document.querySelector('#chat-end');
-            if (element) {
-                setTimeout(() => {
-                    element?.scrollIntoView({behavior: 'smooth'});
-                }, 500);
-            }
-        } catch (error) {
-            // TODO - handle error
-            console.log(error);
-        }
-    };
 
-    const handleSubmit = async () => {
+    const handleSubmit = useCallback(() => {
         setMessageText(state => {
-            const data = {
-                message_text: state,
-                from: communityMembership.id,
-                channel: channelDependency.channel.id,
-                community: channelDependency.channel.community?.id,
+            if (community_uuid && channel_uuid && state) {
+                sendMessage(state, `${community_uuid}`);
+                setTimeout(() => {
+                    const chatEnd = document.querySelector('#chat-end');
+                    if (chatEnd) {
+                        chatEnd.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start',
+                        });
+                    }
+                }, 300);
+                return '';
             };
-            console.log('SENDING --', data);
-            sendMessage(data);
-            return '';
+            return state;
         });
-    };
+    }, [communityMembership, message_text, channelDependency, community_uuid]);
 
     useEffect(() => {
         const chatInput = document.querySelector('#chat-input');

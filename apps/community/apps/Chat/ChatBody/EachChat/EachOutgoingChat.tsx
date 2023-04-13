@@ -1,33 +1,32 @@
-import { Box, VStack } from '@chakra-ui/react';
+import {Box, Flex, HStack, Spinner, VStack, Icon} from '@chakra-ui/react';
 import moment from 'moment';
-import React from 'react';
-import {MessageData} from '../../../../interface/message.interface';
+import React, {useEffect, useState} from 'react';
+import {
+    MessageData,
+    PendingMessageData,
+} from '../../../../interface/message.interface';
 import ReactMarkdown from 'react-markdown';
-import { ChatWrapper } from './ChatWrapper';
+import {ChatWrapper} from './ChatWrapper';
+import {API} from '../../../../utils/API.utils';
+import { RxCheck } from 'react-icons/rx'
 
 type Props = {
-    messages: MessageData[];
+    messages: MessageData[] & PendingMessageData[];
 };
 
 export default function EachOutgoingChat({messages}: Props) {
     return (
-        <Box mb="10" className="flex items-start justify-end space-x-2.5 sm:space-x-5">
+        <Box
+            mb="10"
+            className="flex items-start justify-end space-x-2.5 sm:space-x-5">
             <div className="flex flex-col items-end space-y-1">
                 <VStack className="ml-4 max-w-lg sm:ml-10">
-                    {messages.map(msg => {
+                    {messages.map((msg: any) => {
                         return (
-                            <Box
-                                width="fit-content"
-                                alignSelf={'flex-end'}
-                                m="0"
-                                key={msg.createdAt}
-                                className="rounded-2xl rounded-tr-none p-3 text-slate-700 shadow-sm  dark:text-white dark:bg-navy-500 bg-slate-150">
-                                <ChatWrapper>
-                                    <ReactMarkdown>
-                                        {msg.message_text}
-                                    </ReactMarkdown>
-                                </ChatWrapper>
-                            </Box>
+                            <PendingMessageBubble
+                                message={msg}
+                                key={msg?.uuid}
+                            />
                         );
                     })}
                 </VStack>
@@ -48,3 +47,76 @@ export default function EachOutgoingChat({messages}: Props) {
         </Box>
     );
 }
+
+type BobbleProps = {
+    message: PendingMessageData & MessageData;
+};
+
+export const PendingMessageBubble = ({message}: BobbleProps) => {
+    const [msg, setMsg] = useState<PendingMessageData & MessageData>(message);
+
+    const sendPendingMessage = async (
+        data: PendingMessageData & MessageData,
+    ) => {
+        try {
+            const payload = {
+                message_text: data.message_text,
+                community: data.community.id,
+                channel: data.channel.id,
+                from: data.from.id,
+                uuid: data.uuid,
+            };
+            console.log('SENDING --', payload);
+            const newMsg = await API(`/messages`, true, {
+                method: 'POST',
+                data: {data: payload},
+            });
+            setMsg(newMsg.data);
+           
+        } catch (error) {
+            /**
+             * todo 
+             * - add retry button if message fails;
+             */
+            console.log('ERROR --', error);
+            return Promise.reject(error);
+        }
+    };
+
+    useEffect(() => {
+        if (msg && msg?.status === 'pending') {
+            sendPendingMessage(msg);
+        }
+    }, [msg]);
+
+    return (
+        <Box
+            width="fit-content"
+            alignSelf={'flex-end'}
+            m="0"
+            key={msg.uuid}
+            className="rounded-2xl rounded-tr-none p-3 text-slate-700 shadow-sm  dark:text-white dark:bg-navy-500 bg-slate-150">
+            <ChatWrapper style={{ textAlign: 'end'}}>
+                <ReactMarkdown>{msg.message_text}</ReactMarkdown>
+            </ChatWrapper>
+            <Flex justifyContent={'space-between'}>
+                <HStack minW="100px"></HStack>
+                {msg?.status === 'pending' && (
+                    <Spinner
+                        alignSelf={'flex-end'}
+                        size="sm"
+                        className="spinner is-elastic h-3 w-3 animate-spin text-slate-500 dark:text-navy-300"
+                    />
+                )}
+                {!msg?.status && (
+                    <Icon
+                        as={RxCheck}
+                        alignSelf={'flex-end'}
+                        size="sm"
+                        className="spinner is-elastic h-3 w-3  text-slate-500 dark:text-navy-300"
+                    />
+                )}
+            </Flex>
+        </Box>
+    );
+};

@@ -10,12 +10,13 @@ type Props = {
 };
 
 export default function EachIncomingChat({messages}: Props) {
+
     return (
         <Box mb='10' className="flex items-start space-x-2.5 sm:space-x-5">
             <div className="avatar">
                 <img
                     className="rounded-full"
-                    src="/assets/images/avatar/avatar-19.jpg"
+                    src={messages[0].from.avatar_url}
                     alt="avatar"
                 />
             </div>

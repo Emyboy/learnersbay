@@ -1,4 +1,4 @@
-import { CommunityMembership } from '../../interface/community.interface';
+import {CommunityMembership} from '../../interface/community.interface';
 import store from '../store/store';
 
 export const setCommunityState = (newState: any) => {
@@ -8,7 +8,9 @@ export const setCommunityState = (newState: any) => {
     });
 };
 
-export const getCommunityMembership = (community_uuid: string) => {
+export const getCommunityMembership = (
+    community_uuid: string,
+): CommunityMembership => {
     const allMemberships = store.getState().community.community_memberships;
     return allMemberships.filter(
         (x: CommunityMembership) => x.community.uuid === community_uuid,
