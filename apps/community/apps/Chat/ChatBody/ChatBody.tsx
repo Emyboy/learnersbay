@@ -5,10 +5,7 @@ import {AppStore} from '../../../interface';
 import {formatMessage, setChatState} from '../../../redux/actions/chat.action';
 import {socket} from '../../../utils/LiveConnect';
 import {useRouter} from 'next/router';
-import {
-    MessageData,
-    PendingMessageData,
-} from '../../../interface/message.interface';
+import {MessageData} from '../../../interface/message.interface';
 import moment from 'moment';
 import ChatDayContainer from './Containers/ChatDayContainer';
 import {Box} from '@chakra-ui/react';
@@ -22,9 +19,9 @@ socket.on('message:update', (data: any) => {
     console.log(`MESSAGE UPDATED`, data);
 });
 socket.on('createMessage', (data: MessageData) => {
-    const messageList: MessageData[]  = store.getState().chat.channel_messages;
+    const messageList: MessageData[] = store.getState().chat.channel_messages;
     const messageExists = messageList.filter(x => x.uuid === data.uuid)[0];
-    if(!messageExists){
+    if (!messageExists) {
         setChatState({
             channel_messages: [...messageList, data],
         });
@@ -32,18 +29,13 @@ socket.on('createMessage', (data: MessageData) => {
 });
 
 export default function ChatBody({messages}: Props) {
-    const {channel_messages} = useSelector(
-        (state: AppStore) => state.chat,
-    );
+    const {channel_messages} = useSelector((state: AppStore) => state.chat);
     const {community_memberships} = useSelector(
         (state: AppStore) => state.community,
     );
     const {connected} = useSelector((state: AppStore) => state.view);
 
     const [formattedMessageList, setFormattedMessageList] = useState(null);
-    const [ready, setReady] = useState(false);
-    const router = useRouter();
-    const {channel_uuid} = router.query;
 
     useEffect(() => {
         if (messages) {
@@ -52,6 +44,7 @@ export default function ChatBody({messages}: Props) {
             });
         }
         return () => {
+            // create cleanup action
             setChatState({
                 channel_messages: [],
             });
@@ -59,15 +52,17 @@ export default function ChatBody({messages}: Props) {
     }, [messages]);
 
     useEffect(() => {
-        
-    },[connected])
+        // todo - find more messages
+    }, [connected]);
 
     useEffect(() => {
-        setFormattedMessageList(formatMessage(channel_messages));
+        setFormattedMessageList(
+            formatMessage(channel_messages.sort((a, b) => a.id - b.id)),
+        );
     }, [channel_messages]);
 
     if (
-        community_memberships.length === 0 
+        community_memberships.length === 0
         // || !ready
         // ||
         // !formattedMessageList ||

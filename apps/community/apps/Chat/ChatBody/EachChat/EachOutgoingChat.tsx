@@ -53,6 +53,10 @@ type BobbleProps = {
 };
 
 export const PendingMessageBubble = ({message}: BobbleProps) => {
+    /**
+     * - handle message update
+     * - handle message deletion
+     */
     const [msg, setMsg] = useState<PendingMessageData & MessageData>(message);
 
     const sendPendingMessage = async (
