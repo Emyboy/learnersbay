@@ -1,5 +1,12 @@
 ## Getting Started
 
+### Todo
+- store errors on db
+- review code for member dependencies
+- review code for community dependencies API
+- make sure communityDependency is always complete
+- check if channel exist before loading dependencies
+
 First, run the development server:
 
 ```bash
