@@ -1,6 +1,5 @@
 export default {
     API_URL:
-        process.env.NODE_ENV === 'production'
-            ? `https://learnersbayapi-production.up.railway.app`
-            : `http://localhost:1337`,
+        process.env.NEXT_PUBLIC_BACKEND_URL
+        
 };
