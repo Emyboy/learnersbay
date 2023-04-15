@@ -1,9 +1,10 @@
 import Cookies from 'js-cookie';
+import Globals from '../Globals';
 import {setViewState} from '../redux/actions/view.action';
 
 const {io} = require('socket.io-client');
 
-const SERVER_URL = 'http://localhost:1337';
+const SERVER_URL = Globals.API_URL;
 export const socket = io(SERVER_URL, {
     auth: {
         token: Cookies.get('auth_token'),
