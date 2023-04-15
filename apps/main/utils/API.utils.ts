@@ -6,7 +6,7 @@ export const API = (
 	isAuth?: boolean,
 	options?: AxiosRequestConfig
 ) => {
-	return axios('/api'+process.env.NEXT_PUBLIC_API_URL + url, {
+	return axios(process.env.NEXT_PUBLIC_API_URL + url, {
 		...options,
 		headers: {
 			authorization: isAuth ? 'Bearer ' + Cookies.get('auth_token') : null,
