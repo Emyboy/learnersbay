@@ -101,7 +101,7 @@ export function LoginForm({ onSubmit }: Props) {
 					disabled={loading}
 				>
 					{loading ? (
-						<div className="spinner h-7 w-7 animate-spin rounded-full border-[3px] border-slate-150 border-r-slate-500 dark:border-navy-500 dark:border-r-navy-300"></div>
+						<div className="spinner h-5 w-5 animate-spin rounded-full border-[3px] border-slate-150 border-r-slate-500 dark:border-navy-500- dark:border-r-navy-300-"></div>
 					) : (
 						'Login'
 					)}

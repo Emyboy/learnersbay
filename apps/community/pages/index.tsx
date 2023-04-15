@@ -48,10 +48,9 @@ export default function Index({login}: any) {
 
     return (
         <>
-            <Box display={'flex'} flexDirection="column" minH={'100vh'}>
+            <Box display={'flex'} flexDirection="column" h={'100vh'} pt="10vh">
                 <Box
                     flex={1}
-                    h="100%"
                     p="5"
                     overflowY={'scroll'}
                     className="scrollbar-sm overflow-y-scroll">
@@ -80,20 +79,22 @@ export default function Index({login}: any) {
                         )}
                     </main>
                 </Box>
-                <Flex justifyContent={'flex-end'} p="5">
-                    <Button
-                        onClick={logout}
-                        variant={'ghost'}
-                        className="btn font-medium text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:text-accent-light dark:hover:bg-accent-light/20 dark:focus:bg-accent-light/20 dark:active:bg-accent-light/25">
-                        Logout
-                    </Button>
-                    <Button
-                        className="btn bg-primary font-medium text-white hover:bg-primary-focus hover:shadow-lg hover:shadow-primary/50 focus:bg-primary-focus focus:shadow-lg focus:shadow-primary/50 active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:hover:shadow-accent/50 dark:focus:bg-accent-focus dark:focus:shadow-accent/50 dark:active:bg-accent/90"
-                        isDisabled={selectedCommunity.length === 0}
-                        onClick={openChat}>
-                        Continue
-                    </Button>
-                </Flex>
+                {login && (
+                    <Flex justifyContent={'flex-end'} p="5">
+                        <Button
+                            onClick={logout}
+                            variant={'ghost'}
+                            className="btn font-medium text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:text-accent-light dark:hover:bg-accent-light/20 dark:focus:bg-accent-light/20 dark:active:bg-accent-light/25">
+                            Logout
+                        </Button>
+                        <Button
+                            className="btn bg-primary font-medium text-white hover:bg-primary-focus hover:shadow-lg hover:shadow-primary/50 focus:bg-primary-focus focus:shadow-lg focus:shadow-primary/50 active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:hover:shadow-accent/50 dark:focus:bg-accent-focus dark:focus:shadow-accent/50 dark:active:bg-accent/90"
+                            isDisabled={selectedCommunity.length === 0}
+                            onClick={openChat}>
+                            Continue
+                        </Button>
+                    </Flex>
+                )}
             </Box>
         </>
     );

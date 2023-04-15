@@ -32,7 +32,7 @@ export async function getServerSideProps(ctx: any) {
         const parsedCookies = cookie.parse(ctx.req.headers.cookie);
         const communityDependencyRequests = await fetch(
             Globals.API_URL +
-                `/community/dependencies/${community_uuid}`,
+                `/api/community/dependencies/${community_uuid}`,
             {
                 headers: {
                     authorization: 'Bearer ' + parsedCookies?.auth_token,
@@ -45,7 +45,7 @@ export async function getServerSideProps(ctx: any) {
 
         const channelDependencyRequest = await fetch(
             Globals.API_URL +
-                `/channel/dependencies/${channel_uuid}`,
+                `/api/channel/dependencies/${channel_uuid}`,
             {
                 headers: {
                     authorization: 'Bearer ' + parsedCookies?.auth_token,
