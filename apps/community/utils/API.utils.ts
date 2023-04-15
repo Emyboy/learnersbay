@@ -7,6 +7,7 @@ export const API = (
 	isAuth?: boolean,
 	options?: AxiosRequestConfig
 ) => {
+	console.log('CURRENT GLOBAL --', Globals)
 	return axios(Globals.API_URL+ '/api' + url, {
 		...options,
 		headers: {

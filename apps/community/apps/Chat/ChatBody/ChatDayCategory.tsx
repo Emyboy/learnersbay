@@ -12,7 +12,6 @@ export default function ChatDayCategory({date}: Props) {
     useEffect(() => {
         var dayDate = new Date().toJSON().split('T')[0];
         var dt = moment(date, 'YYYY-MM-DD HH:mm:ss');
-        console.log({ dayDate, date });
         const today = new Date();
         const yesterday = new Date(today);
         yesterday.setDate(yesterday.getDate() - 1);
