@@ -18,7 +18,6 @@ export const getAuthDependencies = async () => {
             setViewState({
                 app_loading: true,
             });
-            console.log('CURRENT ENV --', process.env.NODE_ENV)
             const me = await API(`/users/me`, true);
             setAuthState({
                 user: me.data,

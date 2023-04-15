@@ -5,7 +5,6 @@ import {setViewState} from '../redux/actions/view.action';
 const {io} = require('socket.io-client');
 
 const SERVER_URL = Globals.API_URL;
-console.log('SERVER_URL', SERVER_URL);
 export const socket = io(SERVER_URL, {
     auth: {
         token: Cookies.get('auth_token'),
