@@ -70,7 +70,7 @@ export const PendingMessageBubble = ({message}: BobbleProps) => {
                 from: data.from.id,
                 uuid: data.uuid,
             };
-            console.log('SENDING --', payload);
+            // console.log('SENDING --', payload);
             const newMsg = await API(`/messages`, true, {
                 method: 'POST',
                 data: {data: payload},

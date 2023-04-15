@@ -1,11 +1,32 @@
 import {Box} from '@chakra-ui/react';
-import React from 'react';
+import moment from 'moment';
+import React, {useEffect, useState} from 'react';
 
 type Props = {
-    name: string;
+    date: string;
 };
 
-export default function ChatDayCategory({name}: Props) {
+export default function ChatDayCategory({date}: Props) {
+    const [name, setName] = useState('');
+
+    useEffect(() => {
+        var dayDate = new Date().toJSON().split('T')[0];
+        var dt = moment(date, 'YYYY-MM-DD HH:mm:ss');
+        console.log({ dayDate, date });
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        const ytd = yesterday.toJSON().split('T')[0];
+        if (dayDate === date) {
+            setName('Today');
+        }else if(ytd === date){
+            setName('Yesterday');
+        }else {
+            setName(dt.format('dddd'));
+        }
+
+    }, [date]);
+
     return (
         <>
             <Box

@@ -39,7 +39,7 @@ export default function ChatDayContainer({dayName, dayMessages}: Props) {
 
     return (
         <>
-            <ChatDayCategory name={dayName} />
+            <ChatDayCategory date={dayName} />
             {formattedMessageList &&
                 Object.keys(formattedMessageList).map(time => {
                     return (

@@ -77,10 +77,9 @@ export default function ChatBody({messages}: Props) {
                 style={{overflowX: 'hidden'}}>
                 {formattedMessageList &&
                     Object.keys(formattedMessageList).map(val => {
-                        var dt = moment(val, 'YYYY-MM-DD HH:mm:ss');
                         return (
                             <ChatDayContainer
-                                dayName={dt.format('dddd')}
+                                dayName={val}
                                 dayMessages={formattedMessageList[val]}
                             />
                         );
