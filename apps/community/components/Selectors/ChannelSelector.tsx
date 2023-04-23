@@ -1,11 +1,12 @@
-import {Box, Button, Center, Icon} from '@chakra-ui/react';
-import React from 'react';
-import {CommunityData} from '../../interface/community.interface';
-import {RxPlusCircled} from 'react-icons/rx';
-import {getCommunityMembership} from '../../utils/Community.utils';
+import { Box, Button, Center, Icon } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { CommunityData } from '../../interface/community.interface';
+import { RxPlusCircled } from 'react-icons/rx';
+import { getCommunityMembership } from '../../utils/Community.utils';
 import _Avatar from '../../atoms/_Avatar';
 import moment from 'moment';
 import _MembershipStatusBadge from '../../atoms/_MembershipStatusBadge';
+import CreateCommunityPopup from '../Popups/CreateCommunityPopup';
 
 type Props = {
     list: CommunityData[];
@@ -19,8 +20,11 @@ export default function ChannelSelector({
     onClick,
 }: Props) {
 
+    const [addNewCommunity, setAddNewCommunity] = useState(false);
+
     return (
         <>
+            <CreateCommunityPopup isOpen={addNewCommunity} onClose={() => setAddNewCommunity(false)} />
             <Box w={['95vw', '80vw', '65vw', '40vw']}>
                 <Box mb="16" className="text-center ">
                     <img
@@ -33,7 +37,9 @@ export default function ChannelSelector({
                             Enter your favorite community
                         </h2>
                         <p className="text-slate-400 dark:text-navy-300">
-                            {"Select the communities you\'d like to enter or create a new one."}
+                            {
+                                "Select the communities you'd like to enter or create a new one."
+                            }
                         </p>
                     </div>
                 </Box>
@@ -46,7 +52,7 @@ export default function ChannelSelector({
                         className="card flex-row justify-between space-x-2  ">
                         <div className="flex flex-1 flex-row justify-between align-items-center">
                             <h1
-                                style={{lineHeight: 'revert'}}
+                                style={{ lineHeight: 'revert' }}
                                 className="text-slate-700 focus:text-primary dark:text-navy-100 hover:border-primary dark:focus:text-accent-light text-xl">
                                 Create New Community
                             </h1>
@@ -63,7 +69,11 @@ export default function ChannelSelector({
                             key={item.uuid}
                             data={item}
                             onClick={onClick}
-                            isSelected={selectedCommunity.filter(x => x.uuid === item.uuid).length > 0}
+                            isSelected={
+                                selectedCommunity.filter(
+                                    x => x.uuid === item.uuid,
+                                ).length > 0
+                            }
                         />
                     );
                 })}
