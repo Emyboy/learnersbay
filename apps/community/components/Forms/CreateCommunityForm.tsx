@@ -113,7 +113,7 @@ export default function CreateCommunityForm({ }: Props) {
     );
 }
 
-const LogoSelect = React.memo(({ handleSubmit }: { handleSubmit: any }) => {
+const LogoSelect = ({ handleSubmit }: { handleSubmit: any }) => {
     const toast = useToast();
 
     const [imageUrl, setImageUrl] = useState<any>(null);
@@ -167,7 +167,7 @@ const LogoSelect = React.memo(({ handleSubmit }: { handleSubmit: any }) => {
 
     return <Center mb="9">
         <VStack>
-            {imageUrl && <img className='rounded' src={imageUrl} style={{ width: '100px', height: '100px' }} />}
+            {imageUrl && <div className='rounded' style={{ width: '100px', height: '100px', backgroundImage: `url(${imageUrl})`, backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }} />}
             <label className="btn bg-slate-150 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
                 <input tabIndex={-1} type="file" className="pointer-events-none absolute inset-0 h-full w-full opacity-0" onChange={handleFileSelect} accept="image/*" />
                 <span className="flex items-center space-x-2">
@@ -182,4 +182,4 @@ const LogoSelect = React.memo(({ handleSubmit }: { handleSubmit: any }) => {
             <small>300 x 300</small>
         </VStack>
     </Center>
-})
+}
