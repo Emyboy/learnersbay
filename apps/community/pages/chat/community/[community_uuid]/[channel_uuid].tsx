@@ -59,6 +59,7 @@ export async function getServerSideProps(ctx: any) {
         // Pass data to the page via props
         return {props: {communityDependency, channelDependency}};
     } catch (error) {
+        // todo - handle error code. redirect if unauthorized
         return {
             redirect: {
                 destination: '/',

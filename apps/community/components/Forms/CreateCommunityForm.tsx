@@ -9,6 +9,8 @@ import { API } from '../../utils/API.utils';
 import imageCompression from 'browser-image-compression';
 import Resizer from "react-image-file-resizer";
 import { useRouter } from 'next/router';
+import classNames from 'classnames';
+const qs = require('qs');
 
 
 type Props = {};
@@ -22,28 +24,53 @@ export default function CreateCommunityForm({ }: Props) {
     const toast = useToast();
     const router = useRouter()
 
+    const [subdomainError, setSubdomainError] = useState(false);
+    const [loading, setLoading] = useState(false);
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (user && slug && name && slug?.length > 1) {
-            try {
-                const _data = {
-                    name,
-                    slug,
-                    uuid: uuidv4(),
-                    owner: user.id,
-                    description,
-                    thumbnail
-                };
-                console.log(`SENDING --`, _data);
-                const res = await API(`/communities`, true, {
-                    method: 'POST',
-                    data: _data
-                })
-                console.log(res.data)
-                router.push(`/chat/community/${res.data.uuid}`)
-            } catch (error) {
-                return Promise.reject(error);
+            if (!thumbnail) {
+                return toast({ title: "Please an a logo", status: 'error' })
+            }
+            const query = qs.stringify({
+                filters: {
+                    slug: {
+                        $eq: slug,
+                    },
+                },
+            }, {
+                encodeValuesOnly: true, // prettify URL
+            });
+            const subdomain = await API(`/communities?${query}`)
+            const subdomainExist = subdomain.data.data.length > 0;
+            if (!subdomainExist) {
+                try {
+                    setLoading(true)
+                    const _data = {
+                        name,
+                        slug,
+                        uuid: uuidv4(),
+                        owner: user.id,
+                        description,
+                        thumbnail
+                    };
+                    const res = await API(`/communities`, true, {
+                        method: 'POST',
+                        data: _data
+                    })
+                    // router.push(`/chat/community/${res.data.uuid}`)
+                    const theLocation: any = `/chat/community/${res.data.uuid}`
+                    window.location = theLocation;
+                } catch (error) {
+                    setLoading(false)
+                    toast({ title: `Error, please try again`, status: 'error' })
+                    return Promise.reject(error);
+                }
+            } else {
+                setSubdomainError(true)
+                return toast({ title: `Subdomain is taken`, description: `the subdomain ${slug} is already taken`, status: 'error' })
             }
         }
     };
@@ -51,8 +78,15 @@ export default function CreateCommunityForm({ }: Props) {
     useEffect(() => {
         if (name && name.length < 25) {
             setSlug(stringToSlug(name)?.replaceAll('-', '')?.replace(/[^a-zA-Z ]/g, ""))
+            setSubdomainError(false)
         }
     }, [name])
+    useEffect(() => {
+        if (slug && slug.length < 25) {
+            setSlug(stringToSlug(slug)?.replaceAll('-', '')?.replace(/[^a-zA-Z ]/g, ""))
+            setSubdomainError(false)
+        }
+    }, [slug])
 
     return (
         <form onSubmit={handleSubmit} className="mt-10 mb-20">
@@ -79,8 +113,7 @@ export default function CreateCommunityForm({ }: Props) {
                         maxLength={20}
                         value={slug}
                         required
-                        className="rounded-l-lg form-input w-full border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                        placeholder="Unique Subdomain"
+                        className={classNames({ "border-error border": subdomainError }, { "border border-slate-300 focus:border-primary dark:border-navy-450 hover:border-slate-400 dark:hover:border-navy-400 dark:focus:border-accent": !subdomainError }, " rounded-l-lg form-input w-full  bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:z-10  focus:z-10   ")}
                         disabled={!name}
                         type="text"
                         onChange={e => setSlug(e.target.value)}
@@ -103,11 +136,11 @@ export default function CreateCommunityForm({ }: Props) {
                 </label>
             </div>
             <Button
-                // isLoading
+                isLoading={loading}
                 mb="5"
                 type='submit'
                 className="btn mt-10 h-10 w-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
-                Sign In
+                Create
             </Button>
         </form>
     );
