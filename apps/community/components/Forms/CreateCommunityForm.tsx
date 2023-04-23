@@ -8,6 +8,7 @@ import { stringToSlug } from '../../utils/Community.utils'
 import { API } from '../../utils/API.utils';
 import imageCompression from 'browser-image-compression';
 import Resizer from "react-image-file-resizer";
+import { useRouter } from 'next/router';
 
 
 type Props = {};
@@ -19,6 +20,7 @@ export default function CreateCommunityForm({ }: Props) {
     const [thumbnail, setThumbnail] = useState<any>('')
     const { user } = useSelector((state: AppStore) => state.auth);
     const toast = useToast();
+    const router = useRouter()
 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -39,6 +41,7 @@ export default function CreateCommunityForm({ }: Props) {
                     data: _data
                 })
                 console.log(res.data)
+                router.push(`/chat/community/${res.data.uuid}`)
             } catch (error) {
                 return Promise.reject(error);
             }

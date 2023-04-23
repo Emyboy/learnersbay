@@ -1,4 +1,4 @@
-import { Box, Button, Center, Icon } from '@chakra-ui/react';
+import { Box, Button, Center, Icon, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { CommunityData } from '../../interface/community.interface';
 import { RxPlusCircled } from 'react-icons/rx';
@@ -45,6 +45,7 @@ export default function ChannelSelector({
                 </Box>
                 <Center>
                     <Button
+                        onClick={() => setAddNewCommunity(true)}
                         w={['100%', '70%']}
                         mb="8"
                         py="6"
@@ -101,16 +102,18 @@ const EachCommunity = ({
             cursor={'pointer'}
             mb="5"
             className="card flex-row justify-between space-x-2 p-2.5 ">
-            <img
-                src={data.thumbnail}
-                className="h-28 w-28 rounded-lg object-cover object-center"
-                alt="image"
-            />
+            <Box h={["80px", "120px"]} w={["80px", "120px"]}>
+                <img
+                    src={data.thumbnail}
+                    className="rounded-lg object-cover object-center"
+                    alt="image"
+                />
+            </Box>
             <div className="flex flex-1 flex-col justify-between">
-                <div className="line-clamp-3">
-                    <h1 className="font-medium text-slate-700 focus:text-primary dark:text-navy-100 hover:border-primary dark:focus:text-accent-light text-3xl">
+                <div className="line-clamp-1">
+                    <Text fontSize={["1.4rem", "1.875rem"]} as='h1' className="font-medium text-slate-700 focus:text-primary dark:text-navy-100 hover:border-primary dark:focus:text-accent-light ">
                         {data.name}
-                    </h1>
+                    </Text>
                 </div>
                 <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">

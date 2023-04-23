@@ -22,26 +22,28 @@ export default function Index({login}: any) {
     const [selectedCommunity, setSelectedCommunity] = useState<CommunityData[]>(
         [],
     );
+    console.log(selectedCommunity)
     const router = useRouter();
     const saveAuthToken = (data: any) => {
         Cookies.set('auth_token', data.jwt, {expires: 30});
         window.location.reload();
     };
 
-    useEffect(() => {
-        const com = localStorage.getItem('communities');
-        if(com){
-            setSelectedCommunity(
-                JSON.parse(com),
-            );
-        }
-    }, []);
+    // useEffect(() => {
+    //     const com = localStorage.getItem('communities');
+    //     if(com){
+    //         setSelectedCommunity(
+    //             JSON.parse(com),
+    //         );
+    //     }
+    // }, []);
 
 
     const openChat = () => {
         setCommunityState({
             selectedCommunities: selectedCommunity,
         });
+        localStorage.removeItem('communities')
         localStorage.setItem('communities', JSON.stringify(selectedCommunity));
         router.push(`/chat/community/${selectedCommunity[0].uuid}`);
     };
