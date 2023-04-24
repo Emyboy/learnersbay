@@ -77,13 +77,13 @@ export default function CreateCommunityForm({ }: Props) {
 
     useEffect(() => {
         if (name && name.length < 25) {
-            setSlug(stringToSlug(name)?.replaceAll('-', '')?.replace(/[^a-zA-Z ]/g, ""))
+            setSlug(stringToSlug(name)?.replaceAll('-', '')?.replace(/[^a-zA-Z ]/g, "").trim())
             setSubdomainError(false)
         }
     }, [name])
     useEffect(() => {
         if (slug && slug.length < 25) {
-            setSlug(stringToSlug(slug)?.replaceAll('-', '')?.replace(/[^a-zA-Z ]/g, ""))
+            setSlug(stringToSlug(slug)?.replaceAll('-', '')?.replace(/[^a-zA-Z ]/g, "").trim())
             setSubdomainError(false)
         }
     }, [slug])

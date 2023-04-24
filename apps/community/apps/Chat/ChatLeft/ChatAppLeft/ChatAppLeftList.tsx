@@ -16,7 +16,7 @@ import {ChannelData} from '../../../../interface/community.interface';
 import {useRouter} from 'next/router';
 import classNames from 'classnames';
 import EachShortcut from './EachShortcut';
-import {FiBell, FiUsers, FiDatabase} from 'react-icons/fi';
+import { FiBell, FiUsers, FiDatabase, FiShoppingCart } from 'react-icons/fi';
 import {TbMoneybag} from 'react-icons/tb';
 import {setCommunityState} from '../../../../redux/actions/community.action';
 
@@ -67,6 +67,11 @@ export default function ChatAppLeftList({communityDependency}: Props) {
             className="is-scrollbar-hidden mt-3 flex grow flex-col overflow-y-auto">
             <_Accordion title="Pages" defaultOpen={channelList.length < 10}>
                 <ul className="space-y-1.5 px-2 font-inter text-xs+ font-medium">
+                    <EachShortcut
+                        name="Products"
+                        icon={FiShoppingCart}
+                        url={`/chat/community/${community_uuid}`}
+                    />
                     <EachShortcut
                         name="Files"
                         icon={RxFile}

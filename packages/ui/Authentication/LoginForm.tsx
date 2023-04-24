@@ -101,7 +101,7 @@ export function LoginForm({ onSubmit }: Props) {
 					disabled={loading}
 				>
 					{loading ? (
-						<div className="spinner h-5 w-5 animate-spin rounded-full border-[3px] border-slate-150 border-r-slate-500 dark:border-navy-500- dark:border-r-navy-300-"></div>
+						<div className="spinner h-5 w-5 animate-spin rounded-full border-[3px] border-slate-150 border-r-slate-400 dark:border-navy-500- dark:border-r-navy-300-"></div>
 					) : (
 						'Login'
 					)}
@@ -111,9 +111,9 @@ export function LoginForm({ onSubmit }: Props) {
 						<span>Already have an account? </span>
 						<a
 							className="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent"
-							href="pages-login-1.html"
+							href="/authentication/register"
 						>
-							Sign In
+							Register
 						</a>
 					</p>
 				</div>
