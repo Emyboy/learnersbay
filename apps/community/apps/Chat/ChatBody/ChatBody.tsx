@@ -1,14 +1,14 @@
 'use client';
-import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
-import {AppStore} from '../../../interface';
-import {formatMessage, setChatState} from '../../../redux/actions/chat.action';
-import {socket} from '../../../utils/LiveConnect';
-import {useRouter} from 'next/router';
-import {MessageData} from '../../../interface/message.interface';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { AppStore } from '../../../interface';
+import { formatMessage, setChatState } from '../../../redux/actions/chat.action';
+import { socket } from '../../../utils/LiveConnect';
+import { useRouter } from 'next/router';
+import { MessageData } from '../../../interface/message.interface';
 import moment from 'moment';
 import ChatDayContainer from './Containers/ChatDayContainer';
-import {Box} from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import store from '../../../redux/store/store';
 
 type Props = {
@@ -28,12 +28,12 @@ socket.on('createMessage', (data: MessageData) => {
     }
 });
 
-export default function ChatBody({messages}: Props) {
-    const {channel_messages} = useSelector((state: AppStore) => state.chat);
-    const {community_memberships} = useSelector(
+export default function ChatBody({ messages }: Props) {
+    const { channel_messages } = useSelector((state: AppStore) => state.chat);
+    const { community_memberships } = useSelector(
         (state: AppStore) => state.community,
     );
-    const {connected} = useSelector((state: AppStore) => state.view);
+    const { connected } = useSelector((state: AppStore) => state.view);
 
     const [formattedMessageList, setFormattedMessageList] = useState(null);
 
@@ -74,7 +74,7 @@ export default function ChatBody({messages}: Props) {
             <Box
                 flex={1}
                 className="grow overflow-y-auto px-[calc(var(--margin-x)-.5rem)] py-5 transition-all duration-[.25s] scrollbar-sm"
-                style={{overflowX: 'hidden'}}>
+                style={{ overflowX: 'hidden' }} >
                 {formattedMessageList &&
                     Object.keys(formattedMessageList).map(val => {
                         return (
@@ -88,7 +88,8 @@ export default function ChatBody({messages}: Props) {
                 {message_list?.map(message => {
                     return <EachChatContainer message={message} key={message.createdAt} />;
                 })} */}
-                <Box mt="5" id="chat-end" />
+                
+                <Box mt="20vh" id="chat-end" />
             </Box>
         );
 }
