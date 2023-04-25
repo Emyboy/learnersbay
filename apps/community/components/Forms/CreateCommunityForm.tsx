@@ -32,7 +32,7 @@ export default function CreateCommunityForm({ }: Props) {
         e.preventDefault();
         if (user && slug && name && slug?.length > 1) {
             if (!thumbnail) {
-                return toast({ title: "Please an a logo", status: 'error' })
+                return toast({ title: "Please add a logo", status: 'error' })
             }
             const query = qs.stringify({
                 filters: {

@@ -4,6 +4,7 @@ import {CommunityDependencies} from '../../../interface';
 import ChatAppLeftHeader from './ChatAppLeftHeader';
 import ChatAppLeftList from './ChatAppLeft/ChatAppLeftList';
 import ChatAppLeftSearch from './ChatAppLeftSearch';
+import { useDispatch } from 'react-redux';
 
 type Props = {community_id?: any; communityDependency?: CommunityDependencies};
 
@@ -11,13 +12,21 @@ export default function ChatAppLeft({
     community_id,
     communityDependency,
 }: Props) {
+
+    const dispatch = useDispatch();
+
     return (
         <>
             {community_id && (
                 <>
                     <div className="flex h-18 w-full items-center justify-between pl-4 pr-1">
                         <ChatAppLeftHeader />
-                        <button className="btn h-7 w-7 rounded-full p-0 text-primary hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:text-accent-light/80 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 xl:hidden">
+                        <button className="btn h-7 w-7 rounded-full p-0 text-primary hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:text-accent-light/80 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 xl:hidden" onClick={() => dispatch({
+                            type: 'SET_VIEW_STATE',
+                            payload: {
+                                show_left_panel: false
+                            }
+                        })}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-6 w-6"

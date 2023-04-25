@@ -1,5 +1,5 @@
 'use client';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import ChatAppLeft from './ChatLeft/ChatAppLeft';
 // import ChatBody from './ChatBody/ChatBody';
 import dynamic from 'next/dynamic';
@@ -8,10 +8,10 @@ const ChatBody = dynamic(() => import('./ChatBody/ChatBody'));
 import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';
 
-import {AppStore, CommunityDependencies} from '../../interface';
-import {useSelector} from 'react-redux';
-import {Box, Center, Text} from '@chakra-ui/react';
-import {useRouter} from 'next/router';
+import { AppStore, CommunityDependencies } from '../../interface';
+import { useSelector } from 'react-redux';
+import { Box, Center, Flex, Text } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import ChatAppRight from './ChatRight/ChatAppRight';
 import ChatAppLeftCommunities from './ChatLeft/ChatAppLeftCommunities';
 
@@ -26,9 +26,9 @@ export default function ChatApp({
     unread_messages,
     channelDependency,
 }: Props) {
-    const {connected} = useSelector((state: AppStore) => state.view);
+    const { connected } = useSelector((state: AppStore) => state.view);
     const router = useRouter();
-    const {community_uuid, channel_uuid} = router.query;
+    const { community_uuid, channel_uuid } = router.query;
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -54,7 +54,30 @@ export default function ChatApp({
 
     return (
         <>
-            <div
+            <Flex h='100vh' maxH={'100vh'} id='root' className="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900">
+                <LeftNav communityDependency={communityDependency} community_uuid={community_uuid} />
+                <Flex flexDirection={'column'} as='main' flex={1} className="main-content- chat-app mt-0 ">
+                    {channel_uuid ? (
+                        <>
+                            <Box h='61px'>
+                                <ChatHeader />
+                            </Box>
+                            <Box flex={1} p='3'>
+                                <ChatBody messages={unread_messages} />
+                            </Box>
+                            <ChatInput channelDependency={channelDependency} />
+                        </>
+                    ) : (
+                        <BodyTips />
+                    )}
+                </Flex>
+                <div id="x-teleport-target">
+                    <div>
+                        <ChatAppRight />
+                    </div>
+                </div>
+            </Flex>
+            {/* <div
                 id="root"
                 className="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900">
                 <div className="sidebar print:hidden">
@@ -84,9 +107,26 @@ export default function ChatApp({
                 <div>
                     <ChatAppRight />
                 </div>
-            </div>
+            </div> */}
         </>
     );
+}
+
+const LeftNav = ({ communityDependency, community_uuid }: { community_uuid: string | string[] | undefined, communityDependency: CommunityDependencies | undefined }) => {
+
+    const { show_left_panel } = useSelector((state: AppStore) => state.view);
+
+    return <Flex className="sidebar print:hidden" zIndex={100} position={['fixed', 'inherit']} height={["100vh"]} left={[show_left_panel ? 0 : -400]}>
+        <Box w="5rem"> <ChatAppLeftCommunities /></Box>
+        <Box className="sidebar-panel-" bg='green.100' w="15rem">
+            <div className="flex h-full grow flex-col dark:bg-navy-750">
+                <ChatAppLeft
+                    communityDependency={communityDependency}
+                    community_id={community_uuid}
+                />
+            </div>
+        </Box>
+    </Flex>
 }
 
 const BodyTips = () => {

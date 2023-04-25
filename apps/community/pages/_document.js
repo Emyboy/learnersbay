@@ -4,7 +4,7 @@ export default function Document() {
 	return (
         <Html className="dark">
             <Head />
-            <body className="has-min-sidebar is-sidebar-open is-header-blur">
+            <body className="has-min-sidebar- is-header-blur- is-sidebar-open-">
                 <Main />
                 <NextScript />
             </body>

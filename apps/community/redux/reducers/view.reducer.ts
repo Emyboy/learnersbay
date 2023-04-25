@@ -4,6 +4,7 @@ export interface ViewState {
 	connected: boolean
 	app_loading: boolean
 	show_right_panel: boolean
+	show_left_panel: boolean
 }
 
 const initialState: ViewState = {
@@ -11,7 +12,8 @@ const initialState: ViewState = {
 	// show_side_nav: true,
 	connected: false,
 	app_loading: true,
-	show_right_panel: false
+	show_right_panel: false,
+	show_left_panel: true
 }
 
 export default (

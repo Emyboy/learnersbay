@@ -1,25 +1,25 @@
-import {Link} from '@chakra-ui/next-js';
-import {Icon} from '@chakra-ui/react';
-import {Tooltip} from '@chakra-ui/react';
-import {useRouter} from 'next/router';
+import { Link } from '@chakra-ui/next-js';
+import { Icon } from '@chakra-ui/react';
+import { Tooltip } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import React from 'react';
-import {useSelector} from 'react-redux';
-import {AppStore} from '../../../interface';
-import {CommunityData} from '../../../interface/community.interface';
-import {RxPlus} from 'react-icons/rx';
+import { useSelector } from 'react-redux';
+import { AppStore } from '../../../interface';
+import { CommunityData } from '../../../interface/community.interface';
+import { RxPlus } from 'react-icons/rx';
 import classNames from 'classnames';
 import Globals from '../../../Globals';
 
 type Props = {};
 
-export default function ChatAppLeftCommunities({}: Props) {
-    const {community_list} = useSelector((state: AppStore) => state.community);
+export default function ChatAppLeftCommunities({ }: Props) {
+    const { community_list } = useSelector((state: AppStore) => state.community);
     const router = useRouter();
-    const {community_uuid} = router.query;
-    const {user} = useSelector((state: AppStore) => state.auth);
+    const { community_uuid } = router.query;
+    const { user } = useSelector((state: AppStore) => state.auth);
 
     return (
-        <div className="main-sidebar">
+        <div className="main-sidebar- " style={{ height: '100%' }}>
             <div className="flex h-full w-full flex-col items-center border-r border-slate-150 bg-white dark:border-navy-700 dark:bg-navy-800">
                 <div className="flex pt-4">
                     <Link href="/">
@@ -106,9 +106,8 @@ const EachCommunity = ({
                     'flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90 bg-img'
                 }
                 style={{
-                    backgroundImage: `url(${
-                       data.thumbnail
-                    })`,
+                    backgroundImage: `url(${data.thumbnail
+                        })`,
                 }}></Link>
         </Tooltip>
     );
