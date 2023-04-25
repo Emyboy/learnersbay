@@ -62,9 +62,7 @@ export default function ChatApp({
                             <Box h='61px'>
                                 <ChatHeader />
                             </Box>
-                            <Box flex={1} p='3'>
                                 <ChatBody messages={unread_messages} />
-                            </Box>
                             <ChatInput channelDependency={channelDependency} />
                         </>
                     ) : (
