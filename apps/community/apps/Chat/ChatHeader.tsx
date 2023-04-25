@@ -209,30 +209,30 @@ export default function ChatHeader({ }: Props) {
                     </div>
                 </div>
             </div> */}
-            <Flex className='chat-header relative z-10 flex h-[61px] w-full shrink-0 items-center justify-between border-b border-slate-150 bg-white px-[calc(var(--margin-x)-.5rem)] shadow-sm transition-[padding,width] duration-[.25s] dark:border-navy-700 dark:bg-navy-800'>
+            <Flex className='chat-header relative z-10 flex h-[61px] w-full shrink-0 items-center justify-between border-b border-slate-150 bg-white px-[calc(var(--margin-x)-.5rem)] shadow-sm transition-[padding,width] duration-[.25s] dark:border-navy-700 dark:bg-navy-800' position={['fixed', 'inherit']} bottom={[0]}>
                 <div className='flex items-center space-x-5'>
                     <div className="ml-1 h-7 w-7">
-              <button className="menu-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80" onClick={() => dispatch({
-                type: 'SET_VIEW_STATE',
-                payload: {
-                    show_left_panel: true
-                }
-              })}>
-                <span></span>
-                <span></span>
-                <span></span>
-              </button>
-            </div>
-                <div  className="flex cursor-pointer items-center space-x-4 font-inter">
-              <div className="avatar">
-                <img className="rounded-full" src="/assets/images/avatar/avatar-19.jpg"  alt="avatar"/>
-              </div>
-              <div>
-                <p className="font-medium text-slate-700 line-clamp-1 dark:text-navy-100" x-text="activeChat.name">Alfredo Elliott</p>
-                <p className="mt-0.5 text-xs">Last seen recently</p>
-              </div>
-            </div>
+                        <button className="menu-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80" onClick={() => dispatch({
+                            type: 'SET_VIEW_STATE',
+                            payload: {
+                                show_left_panel: true
+                            }
+                        })}>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
                     </div>
+                    <div className="flex cursor-pointer items-center space-x-4 font-inter">
+                        <div className="avatar">
+                            <img className="rounded-full" src="/assets/images/avatar/avatar-19.jpg" alt="avatar" />
+                        </div>
+                        <div>
+                            <p className="font-medium text-slate-700 line-clamp-1 dark:text-navy-100" x-text="activeChat.name">Alfredo Elliott</p>
+                            <p className="mt-0.5 text-xs">Last seen recently</p>
+                        </div>
+                    </div>
+                </div>
             </Flex>
         </>
     );

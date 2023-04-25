@@ -69,7 +69,9 @@ export default function ChatInput({channelDependency}: Props) {
 
     return (
         <Box
-            className={`chat-footer relative flex  w-full shrink-0 items-center justify-between border-t border-slate-150 bg-white px-[calc(var(--margin-x)-.25rem)] transition-[padding,width] duration-[.25s] dark:border-navy-600 dark:bg-navy-800`}
+            position={['fixed', 'inherit']}
+            bottom={[0]}
+            className={`chat-footer  flex  w-full shrink-0 items-center justify-between border-t border-slate-150 bg-white px-[calc(var(--margin-x)-.25rem)] transition-[padding,width] duration-[.25s] dark:border-navy-600 dark:bg-navy-800`}
             height={inputHeight}>
             <div className="-ml-1.5 flex flex-1 space-x-2 h-full py-2">
                 <button className="btn h-9 w-9 shrink-0 rounded-full p-0 text-slate-500 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:text-navy-200 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
