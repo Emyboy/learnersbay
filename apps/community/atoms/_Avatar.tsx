@@ -9,7 +9,7 @@ type Props = {
 
 export default function _Avatar(props: Props & AvatarProps) {
     return (
-        <Avatar bg='theme' src={props.membership.avatar_url} {...props}>
+        <Avatar bg='theme' src={props.membership.avatar_url || undefined} {...props}>
             {props.showBadge && <AvatarBadge boxSize="1em" bg="green.500" />}
         </Avatar>
     );

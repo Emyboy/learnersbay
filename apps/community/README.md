@@ -1,3 +1,7 @@
+## Resources
+- Cloudinary upload progress: [Youtube](https://www.youtube.com/watch?v=ettCkaZ0jqc&ab_channel=NHNTV)
+
+
 ## Getting Started
 
 ### Todo

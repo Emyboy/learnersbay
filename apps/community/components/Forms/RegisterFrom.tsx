@@ -78,7 +78,7 @@ export default function RegisterFrom({ }: Props) {
             <div className="mt-4 text-center text-xs+">
                 <p className="line-clamp-1">
                     <span>Already have an account? </span>
-                    <a className="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent" href="pages-login-1.html">Sign In</a>
+                    <a className="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent" href="/">Sign In</a>
                 </p>
             </div>
             {/* <div className="my-7 flex items-center space-x-3">

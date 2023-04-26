@@ -1,5 +1,6 @@
 import React from 'react'
 import RegisterFrom from '../../components/Forms/RegisterFrom'
+import Globals from '../../Globals'
 
 export default function register() {
     return (
@@ -10,7 +11,7 @@ export default function register() {
                         <img className="mx-auto h-16 w-16" src="/assets/images/app-logo.svg" alt="logo" />
                         <div className="mt-4">
                             <h2 className="text-2xl font-semibold text-slate-600 dark:text-navy-100">
-                                Welcome To Lineone
+                                Welcome To {Globals.WEBSITE_NAME}
                             </h2>
                             <p className="text-slate-400 dark:text-navy-300">
                                 Please sign up to continue

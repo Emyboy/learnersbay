@@ -4,20 +4,21 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import {MessageData} from '../../../../interface/message.interface';
 import { ChatWrapper } from './ChatWrapper';
+import _Avatar from '../../../../atoms/_Avatar'
 
 type Props = {
     messages: MessageData[];
 };
 
 export default function EachIncomingChat({messages}: Props) {
-
     return (
         <Box mb='10' className="flex items-start space-x-2.5 sm:space-x-5">
             <div className="avatar">
-                <img
+                <_Avatar
                     className="rounded-full"
                     src={messages[0].from.avatar_url}
-                    alt="avatar"
+                    membership={messages[0].from}
+                    size='sm'
                 />
             </div>
 
