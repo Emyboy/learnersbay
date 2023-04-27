@@ -1,6 +1,7 @@
 import { Button, useToast } from '@chakra-ui/react';
 import React, { useState } from 'react'
 import { API } from '../../utils/API.utils';
+import VerifyEmailRequest from './VerifyEmailRequest';
 
 type Props = {}
 
@@ -10,15 +11,17 @@ export default function RegisterFrom({ }: Props) {
     const [first_name, setFirstName] = useState('');
     const [last_name, setLastName] = useState('');
     const [loading, setLoading] = useState(false);
+    const [requestEmail, setRequestEmail] = useState(false);
     const toast = useToast()
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         try {
             e.preventDefault();
-            if(!first_name || !last_name || !email || !password){
+            if (!first_name || !last_name || !email || !password) {
                 return toast({ title: "All fields are required", status: 'error' })
             }
-            const res = await API(`/auth/local/register`, false, {
+            setLoading(true)
+            await API(`/auth/local/register`, false, {
                 method: 'POST',
                 data: {
                     email: email.toLowerCase().trim(),
@@ -27,16 +30,19 @@ export default function RegisterFrom({ }: Props) {
                     last_name: last_name.split(' ')[0].toLowerCase().trim(),
                 }
             })
-            console.log(res.data)
+            setRequestEmail(true)
         } catch (error: any) {
             if (error.response.data.error.message) {
                 toast({ title: error.response.data.error.message.replace('Email or Username', "Email"), status: 'error' })
+                setLoading(false)
             }
-            console.log(error.response.data.error.message)
             return Promise.reject(error)
         }
     }
 
+    if(requestEmail){
+        return <VerifyEmailRequest email={email} />
+    }
 
     return (
         <form onSubmit={handleSubmit} className="card mt-5 rounded-lg p-5 lg:p-7">
@@ -72,7 +78,7 @@ export default function RegisterFrom({ }: Props) {
                     </a>
                 </p>
             </div>
-            <Button type='submit' className="btn mt-5 w-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+            <Button isLoading={loading} type='submit' className="btn mt-5 w-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
                 Register
             </Button>
             <div className="mt-4 text-center text-xs+">
